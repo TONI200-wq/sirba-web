@@ -5,7 +5,7 @@ const path = require("path");
 const server = http.createServer((req, res) => {
   console.log("Request:", req.url);
 
-  let filePath = req.url === "/" ? "/index.html" : req.url;
+  let filePath = req.url === "/" ? "index.html" : req.url.slice(1);
   const fullPath = path.join(__dirname, "public", filePath);
 
   const extname = path.extname(fullPath).toLowerCase();
