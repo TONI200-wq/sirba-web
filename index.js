@@ -5,7 +5,9 @@ const path = require("path");
 const server = http.createServer((req, res) => {
   console.log("Request:", req.url);
 
+  // 🔥 Nettoyage URL
   let filePath = req.url === "/" ? "index.html" : req.url.slice(1);
+
   const fullPath = path.join(__dirname, "public", filePath);
 
   const extname = path.extname(fullPath).toLowerCase();
@@ -25,11 +27,11 @@ const server = http.createServer((req, res) => {
     if (err) {
       console.log("File not found:", fullPath);
       res.writeHead(404);
-      res.end("Page non trouvée");
-    } else {
-      res.writeHead(200, { "Content-Type": contentType });
-      res.end(content);
+      return res.end("Page non trouvée");
     }
+
+    res.writeHead(200, { "Content-Type": contentType });
+    res.end(content);
   });
 });
 
