@@ -4,11 +4,10 @@ const path = require("path");
 
 const server = http.createServer((req, res) => {
 
-  // 🔥 NETTOYAGE DE L'URL (supprime ? et paramètres)
   const cleanUrl = req.url.split("?")[0];
 
   let filePath = cleanUrl === "/" ? "index.html" : cleanUrl.slice(1);
-  const fullPath = path.join(__dirname, "Public", filePath);
+  const fullPath = path.join(__dirname, "public", filePath);
 
   const extname = path.extname(fullPath);
 
@@ -29,7 +28,8 @@ const server = http.createServer((req, res) => {
   });
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
 server.listen(PORT, () => {
-  console.log(`🚀 SIRBA Web disponible sur http://localhost:${PORT}`);
+  console.log(`🚀 SIRBA Web démarré sur le port ${PORT}`);
 });
