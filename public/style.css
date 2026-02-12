@@ -1,0 +1,264 @@
+/* =========================
+   BASE GLOBALE
+========================= */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+/* =========================
+   PAGE DE CONNEXION PRINCIPALE (index.html)
+========================= */
+.login-page {
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* BACKGROUND LOGO */
+.login-background {
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
+}
+
+
+.login-background img {
+  max-width: 60%;
+  opacity: 0.15;
+}
+
+/* CONTAINER LOGIN */
+.login-container {
+  position: relative;
+  z-index: 1;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container h1 {
+  color: #0a3d62;
+  margin-bottom: 20px;
+}
+
+/* FORMULAIRE LOGIN PRINCIPAL – TRANSPARENT */
+#mainLoginForm {
+  background: transparent;
+  padding: 30px;
+  border-radius: 8px;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+
+#mainLoginForm input {
+  padding: 12px;
+  font-size: 16px;
+}
+
+#mainLoginForm button {
+  padding: 12px;
+  background: #0a3d62;
+  color: white;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#mainMessage {
+  text-align: center;
+  font-size: 14px;
+}
+
+/* =========================
+   SECTIONS GÉNÉRALES (centrale.html)
+========================= */
+.section {
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.section h2 {
+  margin-bottom: 20px;
+}
+
+/* =========================
+   HERO PETIT (centrale.html)
+========================= */
+.hero.small {
+  background: #0a3d62;
+  color: white;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 20px;
+  background: white;
+  color: #0a3d62;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* =========================
+   FORMULAIRE PERSONNEL (centrale)
+========================= */
+.login-form {
+  max-width: 400px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.login-form input {
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.login-form button {
+  padding: 12px;
+  background: #0a3d62;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.login-form button:hover {
+  background: #07406a;
+}
+
+/* =========================
+   TABLEAU DE BORD (centrale)
+========================= */
+.action-btn {
+  width: 100%;
+  padding: 14px;
+  background: #0a3d62;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.action-btn:hover {
+  background: #07406a;
+}
+
+/* =========================
+   TEXTE GÉANT ARRIÈRE-PLAN
+========================= */
+.background-title {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 120px;
+  font-weight: 900;
+  color: rgba(10, 61, 98, 0.08);
+  text-transform: uppercase;
+  white-space: nowrap;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* CONTENU AU-DESSUS */
+header,
+section,
+footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+  background: #222;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+
+/* INPUTS TRANSPARENTS – PAGE DE CONNEXION PRINCIPALE */
+#mainLoginForm input {
+  background: transparent;
+  border: 1px solid rgba(10, 61, 98, 0.6);
+  color: #0a3d62;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+/* Texte du placeholder */
+#mainLoginForm input::placeholder {
+  color: rgba(10, 61, 98, 0.7);
+}
+
+/* Effet au focus */
+#mainLoginForm input:focus {
+  outline: none;
+  border-color: #0a3d62;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.login-form label {
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #0a3d62;
+}
+
+/* =========================
+   TABLEAU SUIVI PLEINE LARGEUR
+========================= */
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+#tableSuivi {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  background: white;
+}
+
+#tableSuivi th,
+#tableSuivi td {
+  border: 1px solid #ccc;
+  padding: 6px 8px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+#tableSuivi thead {
+  background: #0a3d62;
+  color: white;
+}
+

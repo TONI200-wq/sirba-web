@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>SIRBA — Accès</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="login-page">
+
+  <!-- ARRIÈRE-PLAN LOGO -->
+  <div class="login-background">
+    <img src="images/logo.png" alt="Logo SIRBA" />
+  </div>
+
+  <!-- CONTENEUR CENTRAL -->
+  <div class="login-container">
+    <h1>Accès SIRBA</h1>
+
+    <!-- FORMULAIRE DE CONNEXION -->
+    <form id="mainLoginForm">
+      <input
+        type="text"
+        id="mainId"
+        placeholder="Identifiant"
+        required
+      />
+
+      <input
+        type="password"
+        id="mainPassword"
+        placeholder="Mot de passe"
+        required
+      />
+
+      <button type="submit">Se connecter</button>
+
+      <p id="mainMessage"></p>
+    </form>
+
+    <!-- CHOIX DE L’INDUSTRIE (ADMIN UNIQUEMENT) -->
+    <div id="industryChoice" style="display:none; margin-top:20px;">
+      <button class="action-btn" id="djeregbeBtn">
+        INDUSTRIE DJEREGBE
+      </button>
+
+      <button class="action-btn" id="gdizBtn">
+        INDUSTRIE ZONE GDIZ
+      </button>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

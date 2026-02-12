@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>SIRBA — Connexion</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="hero small">
+    <h1>Connexion — Centrale à béton</h1>
+    <p>Accès réservé</p>
+  </header>
+
+  <section class="section">
+    <form class="login-form" id="loginForm">
+      <h2>Identification</h2>
+
+      <input
+        type="text"
+        id="identifiant"
+        placeholder="Identifiant"
+        required
+      />
+
+      <input
+        type="password"
+        id="motdepasse"
+        placeholder="Mot de passe"
+        required
+      />
+
+      <!-- ⚠️ IMPORTANT -->
+      <button type="button" id="loginBtn">Se connecter</button>
+
+      <p id="message"></p>
+    </form>
+  </section>
+
+  <script src="login.js"></script>
+</body>
+</html>

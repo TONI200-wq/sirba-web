@@ -1,0 +1,14 @@
+{
+  "name": "sirba-web",
+  "version": "0.1.0",
+  "description": "Plateforme web officielle centrale de SIRBA",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js"
+  },
+  "keywords": [],
+  "author": "Centrale SIRBA",
+  "license": "ISC",
+  "type": "commonjs"
+}

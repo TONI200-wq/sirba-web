@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>SIRBA — Suivi livraison</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="hero small">
+  <h1>SUIVI LIVRAISON</h1>
+  <a href="centrale.html" class="btn">← Retour</a>
+</header>
+
+<!-- PERIODE FIXE -->
+<section class="section">
+  <h2>Période</h2>
+  <input type="month" id="periode" />
+</section>
+
+<!-- FORMULAIRE -->
+<section class="section">
+  <h2>Nouvelle livraison</h2>
+
+  <form id="livraisonForm" class="login-form">
+
+    <input type="text" id="client" placeholder="CLIENT" required>
+    <input type="text" id="bc" placeholder="N° BC" required>
+    <input type="text" id="be" placeholder="N° BE" required>
+
+    <label>Date de création</label>
+    <input type="date" id="dateCreation" required>
+    <label>Date d'émission</label>
+    <input type="date" id="dateEmission" required>
+    <label>Date de prévision pour livraison</label>
+    <input type="date" id="datePrevision" required>
+
+    <input type="text" id="typeProduit" placeholder="TYPE DE PRODUIT" required>
+    <input type="text" id="designation" placeholder="DESIGNATION" required>
+
+    <input type="number" id="quantiteEnlever" placeholder="QUANTITE A ENLEVER" required>
+    <label>Date de livraison</label>
+    <input type="date" id="dateLivraison" required>
+    <input type="text" id="bl" placeholder="N° BL" required>
+    <input type="number" id="quantiteLivree" placeholder="QUANTITE LIVREE" required>
+
+    <label>Heure de chargement</label>
+    <input type="time" id="heureChargement" required>
+    <input type="text" id="slumpDepart" placeholder="SLUMP TEST DEPART" required>
+    <input type="text" id="transporteur" placeholder="TRANSPORTEUR" required>
+    <input type="text" id="camion" placeholder="N° CAMION" required>
+    <input type="text" id="conducteur" placeholder="NOM CONDUCTEUR" required>
+    <label>Heure de départ</label>
+    <input type="time" id="heureDepart" required>
+    <label>Heure d'arrivée'</label>
+    <input type="time" id="heureArrivee" required>
+    <input type="text" id="slumpArrivee" placeholder="SLUMP TEST ARRIVEE" required>
+
+    <button type="submit">Valider</button>
+
+  </form>
+</section>
+
+<!-- TABLEAU EXCEL -->
+<section class="section">
+    <h2 style="text-align:center;">Feuille de suivi</h2>
+  
+    <div class="table-container">
+      <table id="tableSuivi">
+        <thead>
+          <tr>
+            <th>N° D'ORDRE</th>
+            <th>PERIODE</th>
+            <th>CLIENT</th>
+            <th>N° BC</th>
+            <th>N° BE</th>
+            <th>DATE CREATION</th>
+            <th>DATE EMISSION</th>
+            <th>DATE PREVISION LIVRAISON</th>
+            <th>TYPE PRODUIT</th>
+            <th>DESIGNATION</th>
+            <th>QTE A ENLEVER</th>
+            <th>DATE LIVRAISON</th>
+            <th>N° BL</th>
+            <th>QTE LIVREE</th>
+            <th>RESTE A LIVRER</th>
+            <th>HEURE CHARGEMENT</th>
+            <th>SLUMP TEST DEPART</th>
+            <th>TRANSPORTEUR</th>
+            <th>N° CAMION</th>
+            <th>NOM CONDUCTEUR</th>
+            <th>HEURE DEPART</th>
+            <th>HEURE ARRIVEE</th>
+            <th>SLUMP TEST ARRIVEE</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div> <!-- ⚠️ IMPORTANT : fermeture du div -->
+  
+  </section>  
+
+<script src="suivi-livraison.js"></script>
+
+</body>
+</html>
