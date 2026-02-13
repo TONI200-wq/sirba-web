@@ -12,38 +12,51 @@ const pool = new Pool({
 });
 
 // =====================
-// CREATION TABLE
-// (noms en minuscules !)
+// CREATION TABLE (EXACTEMENT comme Excel)
 // =====================
+async function initDB() {
+  try {
 
-pool.query(`
-CREATE TABLE IF NOT EXISTS livraisons (
-  id SERIAL PRIMARY KEY,
-  periode TEXT,
-  client TEXT,
-  bc TEXT,
-  be TEXT,
-  datecreation TEXT,
-  dateemission TEXT,
-  dateprevision TEXT,
-  typeproduit TEXT,
-  designation TEXT,
-  quantiteenlever INTEGER,
-  datelivraison TEXT,
-  bl TEXT,
-  quantitelivree INTEGER,
-  reste INTEGER,
-  heurechargement TEXT,
-  slumpdepart TEXT,
-  transporteur TEXT,
-  camion TEXT,
-  conducteur TEXT,
-  heuredepart TEXT,
-  heurearrivee TEXT,
-  slumparrivee TEXT
-)
-`).catch(console.error);
+    // ⚠️ A UTILISER UNE SEULE FOIS
+    await pool.query('DROP TABLE IF EXISTS livraisons');
 
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS livraisons (
+        id SERIAL PRIMARY KEY,
+        "N° D'ORDRE" TEXT,
+        "PERIODE" TEXT,
+        "CLIENT" TEXT,
+        "N° BC" TEXT,
+        "N° BE" TEXT,
+        "DATE CREATION" TEXT,
+        "DATE EMISSION" TEXT,
+        "DATE PREVISION LIVRAISON" TEXT,
+        "TYPE PRODUIT" TEXT,
+        "DESIGNATION" TEXT,
+        "QTE A ENLEVER" INTEGER,
+        "DATE LIVRAISON" TEXT,
+        "N° BL" TEXT,
+        "QTE LIVREE" INTEGER,
+        "RESTE A LIVRER" INTEGER,
+        "HEURE CHARGEMENT" TEXT,
+        "SLUMP TEST DEPART" TEXT,
+        "TRANSPORTEUR" TEXT,
+        "N° CAMION" TEXT,
+        "NOM CONDUCTEUR" TEXT,
+        "HEURE DEPART" TEXT,
+        "HEURE ARRIVEE" TEXT,
+        "SLUMP TEST ARRIVEE" TEXT
+      )
+    `);
+
+    console.log("✅ Table créée exactement comme la feuille Excel");
+
+  } catch (err) {
+    console.error("DB INIT ERROR:", err);
+  }
+}
+
+initDB();
 
 // =====================
 // SERVEUR HTTP
@@ -73,7 +86,7 @@ const server = http.createServer(async (req, res) => {
   if (req.url === "/api/livraisons" && req.method === "GET") {
     try {
       const result = await pool.query(
-        "SELECT * FROM livraisons ORDER BY id ASC"
+        `SELECT * FROM livraisons ORDER BY id ASC`
       );
 
       res.writeHead(200, { "Content-Type": "application/json" });
@@ -103,14 +116,28 @@ const server = http.createServer(async (req, res) => {
 
         await pool.query(
           `INSERT INTO livraisons (
-            periode, client, bc, be,
-            datecreation, dateemission, dateprevision,
-            typeproduit, designation,
-            quantiteenlever, datelivraison, bl,
-            quantitelivree, reste,
-            heurechargement, slumpdepart,
-            transporteur, camion, conducteur,
-            heuredepart, heurearrivee, slumparrivee
+            "PERIODE",
+            "CLIENT",
+            "N° BC",
+            "N° BE",
+            "DATE CREATION",
+            "DATE EMISSION",
+            "DATE PREVISION LIVRAISON",
+            "TYPE PRODUIT",
+            "DESIGNATION",
+            "QTE A ENLEVER",
+            "DATE LIVRAISON",
+            "N° BL",
+            "QTE LIVREE",
+            "RESTE A LIVRER",
+            "HEURE CHARGEMENT",
+            "SLUMP TEST DEPART",
+            "TRANSPORTEUR",
+            "N° CAMION",
+            "NOM CONDUCTEUR",
+            "HEURE DEPART",
+            "HEURE ARRIVEE",
+            "SLUMP TEST ARRIVEE"
           )
           VALUES (
             $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,
@@ -159,7 +186,6 @@ const server = http.createServer(async (req, res) => {
   // FICHIERS STATIQUES
   // =====================
   let filePath = req.url === "/" ? "index.html" : req.url.slice(1);
-
   const fullPath = path.join(__dirname, "public", filePath);
 
   const extname = path.extname(fullPath).toLowerCase();
