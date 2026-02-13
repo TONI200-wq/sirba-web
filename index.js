@@ -12,7 +12,7 @@ const pool = new Pool({
 });
 
 // =====================
-// CREATION TABLE (EXACTEMENT comme Excel)   id SERIAL PRIMARY KEY,
+// CREATION TABLE (EXACTEMENT comme Excel)
 // =====================
 async function initDB() {
   try {
@@ -22,7 +22,7 @@ async function initDB() {
 
     await pool.query(`
       CREATE TABLE IF NOT EXISTS livraisons (
-       
+        id SERIAL PRIMARY KEY,
         "N° D'ORDRE" TEXT,
         "PERIODE" TEXT,
         "CLIENT" TEXT,
