@@ -15,6 +15,47 @@ const pool = new Pool({
 // CREATION TABLE
 // (noms en minuscules !)
 // =====================
+
+async function initDB() {
+
+  // ⚠️ TEMPORAIRE (1 seule fois)
+  await pool.query('DROP TABLE IF EXISTS livraisons');
+
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS livraisons (
+      id SERIAL PRIMARY KEY,
+      periode TEXT,
+      client TEXT,
+      bc TEXT,
+      be TEXT,
+      "dateCreation" TEXT,
+      "dateEmission" TEXT,
+      "datePrevision" TEXT,
+      "typeProduit" TEXT,
+      designation TEXT,
+      "quantiteEnlever" INTEGER,
+      "dateLivraison" TEXT,
+      bl TEXT,
+      "quantiteLivree" INTEGER,
+      reste INTEGER,
+      "heureChargement" TEXT,
+      "slumpDepart" TEXT,
+      transporteur TEXT,
+      camion TEXT,
+      conducteur TEXT,
+      "heureDepart" TEXT,
+      "heureArrivee" TEXT,
+      "slumpArrivee" TEXT
+    )
+  `);
+
+  console.log("✅ Table créée");
+}
+
+initDB().catch(console.error);
+
+
+
 pool.query(`
 CREATE TABLE IF NOT EXISTS livraisons (
   id SERIAL PRIMARY KEY,
