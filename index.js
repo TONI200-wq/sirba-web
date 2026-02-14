@@ -82,6 +82,8 @@ const server = http.createServer(async (req, res) => {
   // =====================
   if (req.url === "/api/livraisons" && req.method === "GET") {
     try {
+      // ⚠️ UNE SEULE FOIS
+    await pool.query('DROP TABLE IF EXISTS livraisons');
 
       const result = await pool.query(`
         SELECT
@@ -136,10 +138,6 @@ const server = http.createServer(async (req, res) => {
     req.on("end", async () => {
       try {
         const d = JSON.parse(body);
-
-        // ⚠️ A UTILISER UNE SEULE FOIS 
-        // await pool.query('DROP TABLE IF EXISTS livraisons');
-
         await pool.query(
           `INSERT INTO livraisons (
             "PERIODE",
