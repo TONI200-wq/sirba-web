@@ -138,7 +138,7 @@ const server = http.createServer(async (req, res) => {
         const d = JSON.parse(body);
 
         // ⚠️ A UTILISER UNE SEULE FOIS 
-        await pool.query('DROP TABLE IF EXISTS livraisons');
+        // await pool.query('DROP TABLE IF EXISTS livraisons');
 
         await pool.query(
           `INSERT INTO livraisons (
