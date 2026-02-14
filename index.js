@@ -17,9 +17,6 @@ const pool = new Pool({
 async function initDB() {
   try {
 
-    // ⚠️ A UTILISER UNE SEULE FOIS
-    await pool.query('DROP TABLE IF EXISTS livraisons');
-
     await pool.query(`
       CREATE TABLE IF NOT EXISTS livraisons (
         id SERIAL PRIMARY KEY,
@@ -49,7 +46,7 @@ async function initDB() {
       )
     `);
 
-    console.log("✅ Table créée exactement comme la feuille Excel");
+    console.log("✅ Table prête");
 
   } catch (err) {
     console.error("DB INIT ERROR:", err);
@@ -85,9 +82,35 @@ const server = http.createServer(async (req, res) => {
   // =====================
   if (req.url === "/api/livraisons" && req.method === "GET") {
     try {
-      const result = await pool.query(
-        `SELECT * FROM livraisons ORDER BY id ASC`
-      );
+
+      const result = await pool.query(`
+        SELECT
+          id AS ordre,
+          "PERIODE" AS periode,
+          "CLIENT" AS client,
+          "N° BC" AS bc,
+          "N° BE" AS be,
+          "DATE CREATION" AS "dateCreation",
+          "DATE EMISSION" AS "dateEmission",
+          "DATE PREVISION LIVRAISON" AS "datePrevision",
+          "TYPE PRODUIT" AS "typeProduit",
+          "DESIGNATION" AS designation,
+          "QTE A ENLEVER" AS "quantiteEnlever",
+          "DATE LIVRAISON" AS "dateLivraison",
+          "N° BL" AS bl,
+          "QTE LIVREE" AS "quantiteLivree",
+          "RESTE A LIVRER" AS reste,
+          "HEURE CHARGEMENT" AS "heureChargement",
+          "SLUMP TEST DEPART" AS "slumpDepart",
+          "TRANSPORTEUR" AS transporteur,
+          "N° CAMION" AS camion,
+          "NOM CONDUCTEUR" AS conducteur,
+          "HEURE DEPART" AS "heureDepart",
+          "HEURE ARRIVEE" AS "heureArrivee",
+          "SLUMP TEST ARRIVEE" AS "slumpArrivee"
+        FROM livraisons
+        ORDER BY id ASC
+      `);
 
       res.writeHead(200, { "Content-Type": "application/json" });
       return res.end(JSON.stringify(result.rows));
