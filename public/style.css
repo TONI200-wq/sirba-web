@@ -419,3 +419,31 @@ footer {
 .section .table-container {
   margin-top: 0;
 }
+
+/* =========================
+   SECTION FEUILLE EXCEL
+========================= */
+
+.excel-section {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* ENTETE FEUILLE prend toute la largeur */
+.excel-header {
+  width: 100%;
+  margin: 0;
+  border: none;
+}
+
+/* tableau pleine largeur */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+#tableSuivi {
+  width: 100%;
+}
