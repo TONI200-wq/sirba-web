@@ -370,3 +370,52 @@ footer {
   display: inline-flex;
   align-items: center;
 }
+
+/* =========================
+   ENTETE FEUILLE SIRBA (STYLE EXCEL)
+========================= */
+
+.excel-header {
+  width: 100%;
+  background: #e9e9e9;
+  border: 1px solid #ccc;
+  margin-bottom: 0;
+}
+
+/* zone logo (3 lignes environ) */
+.excel-logo-zone {
+  height: 110px;
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+  background: #e9e9e9;
+}
+
+.excel-logo {
+  height: 85px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* bande verte */
+.excel-green-band {
+  height: 38px;
+  background: #076D35;
+  color: white;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  font-size: 26px;
+}
+
+/* bande rouge */
+.excel-red-band {
+  height: 8px;
+  background: #911C06;
+}
+
+/* on colle directement le tableau dessous */
+.section .table-container {
+  margin-top: 0;
+}
