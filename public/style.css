@@ -251,7 +251,7 @@ footer {
   color: white;
 }
 
-/* HEADER 
+/* HEADER */
 .app-header {
   height: 70px;
   background: var(--sirba-green);
@@ -263,7 +263,7 @@ footer {
   position: sticky;
   top: 0;
   z-index: 100;
-}*/
+}
 
 .header-left {
   display: flex;
