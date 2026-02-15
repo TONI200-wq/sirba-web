@@ -1,8 +1,9 @@
 /* =========================
-   VARIABLES COULEURS SIRBA
+   VARIABLES COLORIMETRIQUES
 ========================= */
 :root {
   --sirba-green: #076D35;
+  --sirba-green-hover: #055428;
   --sirba-gray: #404041;
   --sirba-red: #911C06;
   --text-color: #333;
@@ -19,7 +20,7 @@ body {
 }
 
 /* =========================
-   LOGIN PAGE
+   PAGE DE CONNEXION PRINCIPALE
 ========================= */
 .login-page {
   height: 100vh;
@@ -53,11 +54,10 @@ body {
 
 .login-container h1 {
   color: var(--sirba-green);
+  margin-bottom: 20px;
 }
 
-/* =========================
-   FORM LOGIN
-========================= */
+/* FORM LOGIN */
 #mainLoginForm {
   background: transparent;
   padding: 30px;
@@ -66,94 +66,27 @@ body {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  border: 1px solid rgba(255,255,255,0.4);
+  backdrop-filter: blur(4px);
 }
 
 #mainLoginForm input {
-  border: 1px solid rgba(7,109,53,0.5);
-  color: var(--sirba-green);
   padding: 12px;
+  font-size: 16px;
 }
 
 #mainLoginForm button {
-  background: var(--sirba-green);
-  color: white;
-  border: none;
   padding: 12px;
-}
-
-/* =========================
-   HEADER PRINCIPAL
-========================= */
-.app-header {
-  height: 72px;
-  background: var(--sirba-green);
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 24px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.header-logo {
-  height: 46px;
-  background: white;
-  padding: 5px;
-  border-radius: 8px;
-}
-
-.app-header h1 {
-  margin: 0;
-  font-size: 21px;
-  font-weight: 700;
-}
-
-/* bouton retour */
-.app-header .btn {
-  background: white;
-  color: var(--sirba-green);
-  padding: 8px 14px;
-  border-radius: 6px;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.app-header .btn:hover {
-  background: #f3f3f3;
-}
-
-/* =========================
-   HERO
-========================= */
-.hero.small {
-  background: var(--sirba-green);
-  color: white;
-  text-align: center;
-  padding: 60px 20px;
-}
-
-/* =========================
-   BOUTONS
-========================= */
-.action-btn,
-.login-form button {
   background: var(--sirba-green);
   color: white;
   border: none;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-.action-btn:hover,
-.login-form button:hover {
-  background: #055428;
+#mainMessage {
+  text-align: center;
+  font-size: 14px;
 }
 
 /* =========================
@@ -165,9 +98,134 @@ body {
   margin: auto;
 }
 
+.section h2 {
+  margin-bottom: 20px;
+}
+
+/* HERO */
+.hero.small {
+  background: var(--sirba-green);
+  color: white;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 20px;
+  background: white;
+  color: var(--sirba-green);
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
 /* =========================
-   TABLEAU SUIVI
+   FORMULAIRE PERSONNEL
 ========================= */
+.login-form {
+  max-width: 400px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.login-form input {
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.login-form button {
+  padding: 12px;
+  background: var(--sirba-green);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.login-form button:hover {
+  background: var(--sirba-green-hover);
+}
+
+/* TABLEAU DE BORD */
+.action-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--sirba-green);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.action-btn:hover {
+  background: var(--sirba-green-hover);
+}
+
+/* TEXTE ARRIERE PLAN */
+.background-title {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 120px;
+  font-weight: 900;
+  color: rgba(7,109,53,0.08);
+  text-transform: uppercase;
+  white-space: nowrap;
+  z-index: 0;
+  pointer-events: none;
+}
+
+header,
+section,
+footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* FOOTER */
+footer {
+  background: var(--sirba-gray);
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+/* INPUTS */
+#mainLoginForm input {
+  background: transparent;
+  border: 1px solid rgba(7,109,53,0.6);
+  color: var(--sirba-green);
+  border-radius: 4px;
+}
+
+#mainLoginForm input::placeholder {
+  color: rgba(7,109,53,0.7);
+}
+
+#mainLoginForm input:focus {
+  outline: none;
+  border-color: var(--sirba-green);
+}
+
+.login-form label {
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--sirba-green);
+}
+
+/* TABLEAU SUIVI */
 .table-container {
   width: 100%;
   overflow-x: auto;
@@ -188,30 +246,42 @@ body {
   white-space: nowrap;
 }
 
-/* ENTETE TABLEAU */
 #tableSuivi thead {
   background: var(--sirba-green);
   color: white;
 }
 
-/* effet lignes alternées pro */
-#tableSuivi tbody tr:nth-child(even) {
-  background: #f7f7f7;
-}
-
-/* =========================
-   FOOTER
-========================= */
-footer {
-  background: var(--sirba-gray);
+/* HEADER */
+.app-header {
+  height: 70px;
+  background: var(--sirba-green);
   color: white;
-  text-align: center;
-  padding: 20px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-/* =========================
-   TITRE ARRIERE PLAN
-========================= */
-.background-title {
-  color: rgba(7,109,53,0.08);
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-logo {
+  height: 42px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 6px;
+  background: white;
+  padding: 4px;
+}
+
+.app-header h1 {
+  font-size: 20px;
+  margin: 0;
+  font-weight: 700;
 }
