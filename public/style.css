@@ -285,3 +285,80 @@ footer {
   margin: 0;
   font-weight: 700;
 }
+
+
+/* =========================
+   HEADER OFFICIEL SIRBA
+========================= */
+
+/* Conteneur global */
+.sirba-header {
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Bande rouge officielle */
+.sirba-top-line {
+  height: 6px;
+  background: #911C06;
+}
+
+/* Zone verte principale */
+.sirba-header-main {
+  height: 72px;
+  background: #076D35;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+/* Bloc gauche */
+.sirba-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Logo */
+.sirba-logo {
+  height: 46px;
+  width: auto;
+  background: white;
+  border-radius: 6px;
+  padding: 4px;
+  object-fit: contain;
+}
+
+/* Texte */
+.sirba-title h1 {
+  margin: 0;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.sirba-title span {
+  color: rgba(255,255,255,0.85);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+/* Bouton retour */
+.sirba-back {
+  background: white;
+  color: #076D35;
+  padding: 8px 14px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-decoration: none;
+  margin-top: 0;
+}
+
+.sirba-back:hover {
+  background: #f3f3f3;
+}
