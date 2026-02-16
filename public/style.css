@@ -379,3 +379,53 @@ footer {
   text-align: center;
   padding: 20px;
 }
+
+
+
+/* =========================
+   FILTRES STYLE EXCEL
+========================= */
+
+#tableSuivi thead th {
+  position: relative;
+  cursor: pointer;
+  padding-right: 22px;
+}
+
+/* flèche Excel */
+#tableSuivi thead th::after {
+  content: "▼";
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  opacity: 0.8;
+}
+
+/* menu déroulant */
+.filter-menu {
+  position: absolute;
+  background: white;
+  border: 1px solid #bbb;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  max-height: 250px;
+  overflow-y: auto;
+  z-index: 9999;
+  min-width: 180px;
+  font-size: 13px;
+}
+
+.filter-menu div {
+  padding: 7px 10px;
+  cursor: pointer;
+}
+
+.filter-menu div:hover {
+  background: var(--sirba-green);
+  color: white;
+}
+
+.filtered {
+  background: #d9f2e4 !important;
+}

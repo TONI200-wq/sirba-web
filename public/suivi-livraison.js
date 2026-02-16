@@ -172,8 +172,8 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.appendChild(menu);
 
         const rect = th.getBoundingClientRect();
-        menu.style.top = rect.bottom + "px";
-        menu.style.left = rect.left + "px";
+        menu.style.top = (rect.bottom + window.scrollY) + "px";
+        menu.style.left = (rect.left + window.scrollX) + "px";
 
         e.stopPropagation();
       };
