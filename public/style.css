@@ -20,7 +20,7 @@ body {
 }
 
 /* =========================
-   PAGE LOGIN
+   PAGE DE CONNEXION
 ========================= */
 .login-page {
   height: 100vh;
@@ -30,10 +30,11 @@ body {
 .login-background {
   position: fixed;
   inset: 0;
-  background: #fff;
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 0;
 }
 
 .login-background img {
@@ -85,7 +86,7 @@ body {
 }
 
 /* =========================
-   SECTIONS (PAGE CLASSIQUE)
+   SECTIONS CLASSIQUES
 ========================= */
 .section {
   padding: 60px 20px;
@@ -95,16 +96,6 @@ body {
 
 .section h2 {
   margin-bottom: 20px;
-}
-
-/* =========================
-   HERO
-========================= */
-.hero.small {
-  background: var(--sirba-green);
-  color: white;
-  text-align: center;
-  padding: 60px 20px;
 }
 
 /* =========================
@@ -157,14 +148,14 @@ body {
 }
 
 /* =========================
-   HEADER PAGE (ON NE TOUCHE PAS)
+   HEADER PAGE (ON GARDE)
 ========================= */
 .sirba-header {
   width: 100%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
 }
 
 .sirba-top-line {
@@ -223,33 +214,41 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
+  background: white;
 }
 
-/* zone grise logo */
+/* ENTETE FEUILLE */
+.excel-header {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* zone grise + logo */
 .excel-logo-zone {
-  height: 110px;
+  height: 120px;
   background: #e6e6e6;
   display: flex;
   align-items: center;
-  padding-left: 15px;
+  padding-left: 20px;
 }
 
 .excel-logo {
-  height: 85px;
+  height: 90px;
   width: auto;
   object-fit: contain;
 }
 
 /* bande verte */
 .excel-green-band {
-  height: 36px;
+  height: 40px;
   background: var(--sirba-green);
   color: white;
   display: flex;
   align-items: center;
-  padding-left: 15px;
-  font-weight: 700;
+  padding-left: 20px;
   font-size: 28px;
+  font-weight: 700;
 }
 
 /* bande rouge */
@@ -258,13 +257,12 @@ body {
   background: var(--sirba-red);
 }
 
-/* tableau pleine largeur */
+/* tableau */
 .excel-table-wrapper {
   width: 100%;
   overflow-x: auto;
 }
 
-/* tableau */
 #tableSuivi {
   width: 100%;
   border-collapse: collapse;
@@ -280,7 +278,7 @@ body {
   white-space: nowrap;
 }
 
-/* entête tableau uniquement */
+/* entête tableau */
 .excel-sheet #tableSuivi thead th {
   background: var(--sirba-green);
   color: white;
