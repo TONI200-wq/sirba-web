@@ -325,20 +325,26 @@ body {
 }
 
 /* =========================
-   TABLEAU EXCEL - SCROLL FIXE
+   TABLEAU EXCEL - SCROLL PRO
 ========================= */
 .excel-table-wrapper {
   width: 100%;
-  overflow-x: auto;
-  overflow-y: auto;
-
-  /* hauteur visible immédiatement */
-  max-height: 65vh;
-
   background: white;
-
-  /* important */
   border-top: 1px solid #ccc;
+
+  /* SCROLL */
+  overflow: auto;
+
+  /* hauteur visible dès arrivée */
+  height: 65vh;
+
+  /* IMPORTANT : réserve la place du scrollbar */
+  scrollbar-gutter: stable;
+}
+
+/* toujours visible pendant scroll page */
+.excel-sheet {
+  margin-bottom: 20px;
 }
 
 
