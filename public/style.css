@@ -446,3 +446,59 @@ footer {
   width: 100%;
 }
 
+/* =========================
+   FEUILLE EXCEL UNIQUEMENT
+========================= */
+
+/* bloc feuille */
+.excel-sheet {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* zone grise logo */
+.excel-logo-zone {
+  height: 110px;
+  background: #e6e6e6;
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+}
+
+.excel-logo {
+  height: 85px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* bande verte */
+.excel-green-band {
+  height: 36px;
+  background: var(--sirba-green);
+  color: white;
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+  font-weight: 700;
+  font-size: 28px;
+}
+
+/* bande rouge */
+.excel-red-band {
+  height: 8px;
+  background: var(--sirba-red);
+}
+
+/* tableau plein écran */
+.excel-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* entête tableau seulement */
+.excel-sheet #tableSuivi thead th {
+  background: var(--sirba-green);
+  color: white;
+  font-weight: 700;
+}
