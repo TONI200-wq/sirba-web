@@ -5,20 +5,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const periodeInput = document.getElementById("periode");
 
   // =========================
-  // CHARGER LES DONNÉES DEPUIS POSTGRESQL
+  // CHARGER LES DONNÉES
   // =========================
   async function chargerDonnees() {
     try {
       const res = await fetch("/api/livraisons");
       const data = await res.json();
 
-      tableBody.innerHTML = ""; // sécurité anti doublons
+      tableBody.innerHTML = ""; // anti doublons
 
       data.forEach((item, index) => {
-        // utilise le numéro venant de la DB
         const numero = item.ordre || item.id || (index + 1);
         ajouterLigne(item, numero);
       });
+
+      // ⚡ IMPORTANT : recréer filtres après chargement
+      initFilters();
 
     } catch (err) {
       console.error("Erreur chargement:", err);
@@ -59,8 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     try {
-
-      // 📤 ENVOYER AU SERVEUR
       const res = await fetch("/api/livraisons", {
         method: "POST",
         headers: {
@@ -71,9 +71,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!res.ok) throw new Error("Erreur serveur");
 
-      // 🔄 Recharge propre depuis DB (source unique)
+      // recharge depuis DB
       await chargerDonnees();
-
       form.reset();
 
     } catch (err) {
@@ -116,6 +115,68 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
 
     tableBody.appendChild(row);
+  }
+
+  // =========================
+  // FILTRES MENU TYPE EXCEL
+  // =========================
+  function initFilters() {
+
+    const table = document.getElementById("tableSuivi");
+    const tbody = table.querySelector("tbody");
+    const selects = document.querySelectorAll(".filter-row select");
+
+    // reset options
+    selects.forEach(select => {
+      select.innerHTML = `<option value="">Tous</option>`;
+    });
+
+    // remplir menus automatiquement
+    selects.forEach(select => {
+
+      const col = Number(select.dataset.col);
+      const values = new Set();
+
+      tbody.querySelectorAll("tr").forEach(row => {
+        if (row.children[col]) {
+          values.add(row.children[col].textContent.trim());
+        }
+      });
+
+      values.forEach(val => {
+        if (val !== "") {
+          const option = document.createElement("option");
+          option.value = val;
+          option.textContent = val;
+          select.appendChild(option);
+        }
+      });
+    });
+
+    // filtre
+    selects.forEach(select => {
+      select.onchange = () => {
+
+        const rows = tbody.querySelectorAll("tr");
+
+        rows.forEach(row => {
+
+          let visible = true;
+
+          selects.forEach(s => {
+            const col = Number(s.dataset.col);
+            const val = s.value;
+
+            if (val && row.children[col].textContent.trim() !== val) {
+              visible = false;
+            }
+          });
+
+          row.style.display = visible ? "" : "none";
+        });
+
+      };
+    });
   }
 
 });
