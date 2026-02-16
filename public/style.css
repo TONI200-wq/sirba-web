@@ -22,6 +22,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 /* =========================
@@ -284,11 +285,10 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
-  background: white;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  border: 1px solid #ddd;
-  overflow: hidden; /* important */
+  display: flex;
+  flex-direction: column;
 }
+
 
 .excel-header {
   width: 100%;
@@ -340,6 +340,8 @@ body {
 
   /* IMPORTANT : réserve la place du scrollbar */
   scrollbar-gutter: stable;
+  position: relative;
+  flex: 1;
 }
 
 /* toujours visible pendant scroll page */
