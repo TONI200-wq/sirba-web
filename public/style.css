@@ -17,10 +17,15 @@ body {
   margin: 0;
   padding: 0;
   color: var(--text-color);
+
+  /* NOUVEAU */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* =========================
-   PAGE DE CONNEXION PRINCIPALE
+   PAGE LOGIN
 ========================= */
 .login-page {
   height: 100vh;
@@ -57,7 +62,9 @@ body {
   margin-bottom: 20px;
 }
 
-/* FORM LOGIN */
+/* =========================
+   FORM LOGIN
+========================= */
 #mainLoginForm {
   background: transparent;
   padding: 30px;
@@ -73,6 +80,10 @@ body {
 #mainLoginForm input {
   padding: 12px;
   font-size: 16px;
+  background: transparent;
+  border: 1px solid rgba(7,109,53,0.6);
+  color: var(--sirba-green);
+  border-radius: 4px;
 }
 
 #mainLoginForm button {
@@ -90,7 +101,7 @@ body {
 }
 
 /* =========================
-   SECTIONS
+   SECTIONS CLASSIQUES
 ========================= */
 .section {
   padding: 60px 20px;
@@ -102,7 +113,9 @@ body {
   margin-bottom: 20px;
 }
 
-/* HERO */
+/* =========================
+   HERO
+========================= */
 .hero.small {
   background: var(--sirba-green);
   color: white;
@@ -110,6 +123,9 @@ body {
   padding: 60px 20px;
 }
 
+/* =========================
+   BOUTONS
+========================= */
 .btn {
   display: inline-block;
   margin-top: 20px;
@@ -122,7 +138,7 @@ body {
 }
 
 /* =========================
-   FORMULAIRE PERSONNEL
+   FORMULAIRE
 ========================= */
 .login-form {
   max-width: 400px;
@@ -146,14 +162,22 @@ body {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
 }
 
 .login-form button:hover {
   background: var(--sirba-green-hover);
 }
 
-/* TABLEAU DE BORD */
+.login-form label {
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--sirba-green);
+}
+
+/* =========================
+   TABLEAU DE BORD
+========================= */
 .action-btn {
   width: 100%;
   padding: 14px;
@@ -171,7 +195,9 @@ body {
   background: var(--sirba-green-hover);
 }
 
-/* TEXTE ARRIERE PLAN */
+/* =========================
+   TEXTE ARRIERE PLAN
+========================= */
 .background-title {
   position: fixed;
   top: 50%;
@@ -193,44 +219,126 @@ footer {
   z-index: 1;
 }
 
-/* FOOTER */
-footer {
-  background: var(--sirba-gray);
+/* =========================
+   HEADER OFFICIEL SIRBA
+========================= */
+.sirba-header {
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.sirba-top-line {
+  height: 6px;
+  background: var(--sirba-red);
+}
+
+.sirba-header-main {
+  height: 72px;
+  background: var(--sirba-green);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.sirba-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sirba-logo {
+  height: 46px;
+  background: white;
+  border-radius: 6px;
+  padding: 4px;
+}
+
+.sirba-title h1 {
+  margin: 0;
   color: white;
-  text-align: center;
-  padding: 20px;
+  font-size: 20px;
 }
 
-/* INPUTS */
-#mainLoginForm input {
-  background: transparent;
-  border: 1px solid rgba(7,109,53,0.6);
+.sirba-title span {
+  color: rgba(255,255,255,0.85);
+  font-size: 12px;
+}
+
+.sirba-back {
+  background: white;
   color: var(--sirba-green);
-  border-radius: 4px;
-}
-
-#mainLoginForm input::placeholder {
-  color: rgba(7,109,53,0.7);
-}
-
-#mainLoginForm input:focus {
-  outline: none;
-  border-color: var(--sirba-green);
-}
-
-.login-form label {
+  padding: 8px 14px;
+  border-radius: 5px;
   font-weight: bold;
-  margin-top: 10px;
-  font-size: 14px;
-  color: var(--sirba-green);
+  text-decoration: none;
 }
 
-/* TABLEAU SUIVI */
-.table-container {
+.sirba-header .btn {
+  margin-top: 0 !important;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* =========================
+   FEUILLE EXCEL
+========================= */
+
+.excel-sheet {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border: 1px solid #ddd;
+}
+
+.excel-header {
+  width: 100%;
+  background: #e9e9e9;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.excel-logo-zone {
+  height: 120px;
+  background: #e6e6e6;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.excel-logo {
+  height: 90px;
+  object-fit: contain;
+}
+
+.excel-green-band {
+  height: 40px;
+  background: var(--sirba-green);
+  color: white;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.excel-red-band {
+  height: 8px;
+  background: var(--sirba-red);
+}
+
+.excel-table-wrapper {
   width: 100%;
   overflow-x: auto;
 }
 
+/* TABLEAU */
 #tableSuivi {
   width: 100%;
   border-collapse: collapse;
@@ -246,210 +354,15 @@ footer {
   white-space: nowrap;
 }
 
-#tableSuivi thead {
+.excel-sheet #tableSuivi thead th {
   background: var(--sirba-green);
   color: white;
-}
-
-/* HEADER */
-.app-header {
-  height: 70px;
-  background: var(--sirba-green);
-  color: white;
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.header-logo {
-  height: 42px;
-  width: auto;
-  object-fit: contain;
-  border-radius: 6px;
-  background: white;
-  padding: 4px;
-}
-
-.app-header h1 {
-  font-size: 20px;
-  margin: 0;
   font-weight: 700;
-}
-
-/* =========================
-   HEADER OFFICIEL SIRBA
-========================= */
-
-/* Conteneur global */
-.sirba-header {
-  width: 100%;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-/* Bande rouge officielle */
-.sirba-top-line {
-  height: 6px;
-  background: #911C06;
-}
-
-/* Zone verte principale */
-.sirba-header-main {
-  height: 72px;
-  background: #076D35;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-}
-
-/* Bloc gauche */
-.sirba-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-/* Logo */
-.sirba-logo {
-  height: 46px;
-  width: auto;
-  background: white;
-  border-radius: 6px;
-  padding: 4px;
-  object-fit: contain;
-}
-
-/* Texte */
-.sirba-title h1 {
-  margin: 0;
-  color: white;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 1.1;
-}
-
-.sirba-title span {
-  color: rgba(255,255,255,0.85);
-  font-size: 12px;
-  letter-spacing: 0.5px;
-}
-
-/* Bouton retour */
-.sirba-back {
-  background: white;
-  color: #076D35;
-  padding: 8px 14px;
-  border-radius: 5px;
-  font-weight: bold;
-  text-decoration: none;
-  margin-top: 0;
-}
-
-.sirba-back:hover {
-  background: #f3f3f3;
-}
-
-/* Correction bouton retour dans header */
-.sirba-header .btn {
-  margin-top: 0 !important;
-  display: inline-flex;
-  align-items: center;
-}
-
-/* =========================
-   ENTETE FEUILLE SIRBA (STYLE EXCEL)
-========================= */
-
-.excel-header {
-  width: 100%;
-  background: #e9e9e9;
-  border: 1px solid #ccc;
-  margin-bottom: 0;
-}
-
-/* zone logo (3 lignes environ) */
-.excel-logo-zone {
-  height: 110px;
-  display: flex;
-  align-items: center;
-  padding-left: 15px;
-  background: #e9e9e9;
-}
-
-.excel-logo {
-  height: 85px;
-  width: auto;
-  object-fit: contain;
-}
-
-/* bande verte */
-.excel-green-band {
-  height: 38px;
-  background: #076D35;
-  color: white;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  padding-left: 20px;
-  font-size: 26px;
-}
-
-/* bande rouge */
-.excel-red-band {
-  height: 8px;
-  background: #911C06;
-}
-
-/* on colle directement le tableau dessous */
-.section .table-container {
-  margin-top: 0;
-}
-
-/* =========================
-   SECTION FEUILLE EXCEL
-========================= */
-
-.excel-section {
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  max-width: 100%;
-}
-
-/* ENTETE FEUILLE prend toute la largeur */
-.excel-header {
-  width: 100%;
-  margin: 0;
-  border: none;
-}
-
-/* tableau pleine largeur */
-.table-container {
-  width: 100%;
-  overflow-x: auto;
-}
-
-#tableSuivi {
-  width: 100%;
 }
 
 /* =========================
    DASHBOARD CENTRALE
 ========================= */
-
 .dashboard-section {
   max-width: 700px;
   margin: 40px auto;
@@ -459,17 +372,23 @@ footer {
   padding: 0 20px;
 }
 
-/* boutons dashboard plus élégants */
 .dashboard-section .action-btn {
-  text-align: left;
   padding: 16px 18px;
   font-size: 16px;
   border-radius: 6px;
 }
 
-/* bouton retour aligné comme suivi livraison */
-.sirba-header .btn {
-  margin-top: 0 !important;
-  display: inline-flex;
-  align-items: center;
+/* =========================
+   FOOTER
+========================= */
+footer {
+  background: var(--sirba-gray);
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+/* pousse le footer vers le bas */
+.dashboard-section {
+  flex: 1;
 }
