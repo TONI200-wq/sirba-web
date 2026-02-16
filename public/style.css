@@ -324,11 +324,23 @@ body {
   background: var(--sirba-red);
 }
 
+/* =========================
+   TABLEAU EXCEL - SCROLL FIXE
+========================= */
 .excel-table-wrapper {
   width: 100%;
   overflow-x: auto;
+  overflow-y: auto;
+
+  /* hauteur visible immédiatement */
+  max-height: 65vh;
+
   background: white;
+
+  /* important */
+  border-top: 1px solid #ccc;
 }
+
 
 /* TABLEAU */
 #tableSuivi {
