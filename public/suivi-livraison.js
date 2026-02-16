@@ -4,23 +4,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const tableBody = document.querySelector("#tableSuivi tbody");
   const periodeInput = document.getElementById("periode");
 
-  // =========================
-  // CHARGER LES DONNÉES
-  // =========================
+  /* =========================
+     CHARGEMENT DONNÉES
+  ========================= */
   async function chargerDonnees() {
     try {
       const res = await fetch("/api/livraisons");
       const data = await res.json();
 
-      tableBody.innerHTML = ""; // anti doublons
+      tableBody.innerHTML = "";
 
       data.forEach((item, index) => {
         const numero = item.ordre || item.id || (index + 1);
         ajouterLigne(item, numero);
       });
 
-      // ⚡ IMPORTANT : recréer filtres après chargement
-      initFilters();
+      activerFiltres(); // IMPORTANT → réactive les filtres après reload
 
     } catch (err) {
       console.error("Erreur chargement:", err);
@@ -29,9 +28,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   chargerDonnees();
 
-  // =========================
-  // SOUMISSION FORMULAIRE
-  // =========================
+  /* =========================
+     FORMULAIRE
+  ========================= */
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -61,17 +60,15 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     try {
+
       const res = await fetch("/api/livraisons", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
       });
 
       if (!res.ok) throw new Error("Erreur serveur");
 
-      // recharge depuis DB
       await chargerDonnees();
       form.reset();
 
@@ -81,9 +78,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // =========================
-  // AJOUT LIGNE TABLEAU
-  // =========================
+  /* =========================
+     AJOUT LIGNE
+  ========================= */
   function ajouterLigne(data, numero) {
 
     const row = document.createElement("tr");
@@ -117,65 +114,74 @@ document.addEventListener("DOMContentLoaded", () => {
     tableBody.appendChild(row);
   }
 
-  // =========================
-  // FILTRES MENU TYPE EXCEL
-  // =========================
-  function initFilters() {
+  /* =========================
+     FILTRES STYLE EXCEL
+  ========================= */
+  function activerFiltres() {
 
-    const table = document.getElementById("tableSuivi");
-    const tbody = table.querySelector("tbody");
-    const selects = document.querySelectorAll(".filter-row select");
+    document.querySelectorAll("#tableSuivi thead th").forEach((th, colIndex) => {
 
-    // reset options
-    selects.forEach(select => {
-      select.innerHTML = `<option value="">Tous</option>`;
-    });
+      th.onclick = function (e) {
 
-    // remplir menus automatiquement
-    selects.forEach(select => {
+        document.querySelectorAll(".filter-menu").forEach(m => m.remove());
 
-      const col = Number(select.dataset.col);
-      const values = new Set();
+        const menu = document.createElement("div");
+        menu.className = "filter-menu";
 
-      tbody.querySelectorAll("tr").forEach(row => {
-        if (row.children[col]) {
-          values.add(row.children[col].textContent.trim());
-        }
-      });
+        const values = new Set();
 
-      values.forEach(val => {
-        if (val !== "") {
-          const option = document.createElement("option");
-          option.value = val;
-          option.textContent = val;
-          select.appendChild(option);
-        }
-      });
-    });
-
-    // filtre
-    selects.forEach(select => {
-      select.onchange = () => {
-
-        const rows = tbody.querySelectorAll("tr");
-
-        rows.forEach(row => {
-
-          let visible = true;
-
-          selects.forEach(s => {
-            const col = Number(s.dataset.col);
-            const val = s.value;
-
-            if (val && row.children[col].textContent.trim() !== val) {
-              visible = false;
-            }
-          });
-
-          row.style.display = visible ? "" : "none";
+        document.querySelectorAll("#tableSuivi tbody tr").forEach(row => {
+          values.add(row.children[colIndex].innerText);
         });
 
+        // Tout afficher
+        const showAll = document.createElement("div");
+        showAll.textContent = "Tout afficher";
+        showAll.onclick = () => {
+          document.querySelectorAll("#tableSuivi tbody tr")
+            .forEach(r => r.style.display = "");
+          th.classList.remove("filtered");
+          menu.remove();
+        };
+        menu.appendChild(showAll);
+
+        // Options uniques
+        values.forEach(value => {
+
+          const option = document.createElement("div");
+          option.textContent = value || "(Vide)";
+
+          option.onclick = () => {
+
+            document.querySelectorAll("#tableSuivi tbody tr")
+              .forEach(row => {
+                if (row.children[colIndex].innerText === value) {
+                  row.style.display = "";
+                } else {
+                  row.style.display = "none";
+                }
+              });
+
+            th.classList.add("filtered");
+            menu.remove();
+          };
+
+          menu.appendChild(option);
+        });
+
+        document.body.appendChild(menu);
+
+        const rect = th.getBoundingClientRect();
+        menu.style.top = rect.bottom + "px";
+        menu.style.left = rect.left + "px";
+
+        e.stopPropagation();
       };
+    });
+
+    document.addEventListener("click", () => {
+      document.querySelectorAll(".filter-menu")
+        .forEach(m => m.remove());
     });
   }
 
