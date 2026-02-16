@@ -446,3 +446,30 @@ footer {
   width: 100%;
 }
 
+/* =========================
+   DASHBOARD CENTRALE
+========================= */
+
+.dashboard-section {
+  max-width: 700px;
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 0 20px;
+}
+
+/* boutons dashboard plus élégants */
+.dashboard-section .action-btn {
+  text-align: left;
+  padding: 16px 18px;
+  font-size: 16px;
+  border-radius: 6px;
+}
+
+/* bouton retour aligné comme suivi livraison */
+.sirba-header .btn {
+  margin-top: 0 !important;
+  display: inline-flex;
+  align-items: center;
+}
