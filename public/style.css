@@ -332,16 +332,14 @@ body {
   background: white;
   border-top: 1px solid #ccc;
 
-  /* SCROLL */
-  overflow: auto;
+  /* SCROLL INTERNE */
+  overflow-x: auto;
+  overflow-y: auto;
 
-  /* hauteur visible dès arrivée */
-  height: 65vh;
+  height: 60vh;
+  max-height: 60vh;
 
-  /* IMPORTANT : réserve la place du scrollbar */
-  scrollbar-gutter: stable;
   position: relative;
-  flex: 1;
 }
 
 /* toujours visible pendant scroll page */
@@ -407,7 +405,9 @@ footer {
 ========================= */
 
 #tableSuivi thead th {
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 5;
   cursor: pointer;
   padding-right: 22px;
 }
