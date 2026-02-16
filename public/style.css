@@ -446,3 +446,48 @@ footer {
 .filtered {
   background: #d9f2e4 !important;
 }
+
+
+
+/* =====================================
+   FORMULAIRE SUIVI LIVRAISON (UNIQUEMENT)
+===================================== */
+
+.livraison-form {
+  max-width: 1100px;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px 20px;
+
+  /* IMPORTANT : annule flex vertical existant */
+  flex-direction: initial;
+}
+
+/* bloc champ */
+.livraison-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* LABEL toujours au dessus */
+.livraison-form .form-group label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--sirba-green);
+  margin: 0;
+}
+
+/* champs */
+.livraison-form .form-group input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* bouton Valider pleine largeur */
+.livraison-form button {
+  grid-column: 1 / -1;
+  margin-top: 10px;
+}
