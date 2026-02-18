@@ -19,10 +19,15 @@ module.exports = async (req, res) => {
 
       return res.status(200).json(result.rows);
 
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ error: "Erreur lecture DB" });
-    }
+    } 
+    
+    catch (err) {
+        console.error("ERREUR DB :", err);
+        return res.status(500).json({ 
+          error: "Erreur lecture DB",
+          detail: err.message 
+        });
+      }      
   }
 
   // =========================
@@ -78,10 +83,15 @@ module.exports = async (req, res) => {
 
       return res.status(200).json(result.rows[0]);
 
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ error: "Erreur insertion DB" });
-    }
+    } 
+    
+    catch (err) {
+        console.error("ERREUR DB :", err);
+        return res.status(500).json({ 
+          error: "Erreur lecture DB",
+          detail: err.message 
+        });
+      }      
   }
 
   // méthode non autorisée
