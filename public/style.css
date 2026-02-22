@@ -282,7 +282,7 @@ body {
    FEUILLE EXCEL
 ========================= */
 .excel-sheet {
-  width: 100%;
+  flex: 1;
   margin: 0;
   padding: 0;
   display: flex;
@@ -490,4 +490,41 @@ footer {
 .livraison-form button {
   grid-column: 1 / -1;
   margin-top: 10px;
+}
+
+
+/* =========================
+   LAYOUT AVEC PANNEAU GAUCHE
+========================= */
+
+.page-layout {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+  width: 100%;
+}
+
+.column-panel {
+  width: 220px;
+  background: #f4f4f4;
+  padding: 15px;
+  border: 1px solid #ddd;
+  height: fit-content;
+}
+
+.column-panel h3 {
+  margin-top: 0;
+  font-size: 16px;
+  color: var(--sirba-green);
+}
+
+.column-panel label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  cursor: pointer;
 }
