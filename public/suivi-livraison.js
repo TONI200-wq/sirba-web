@@ -3,6 +3,38 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("livraisonForm");
   const tableBody = document.querySelector("#tableSuivi tbody");
   const periodeInput = document.getElementById("periode");
+  // =========================
+// FORMATAGE DATE & HEURE
+// =========================
+
+function formatDateFR(dateString) {
+  if (!dateString) return "";
+
+  const date = new Date(dateString);
+
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+
+  return `${day}/${month}/${year}`;
+}
+
+function formatHeureFR(timeString) {
+  if (!timeString) return "";
+
+  // si déjà format simple HH:MM
+  if (timeString.length === 5) {
+    return timeString.replace(":", "h");
+  }
+
+  // si format ISO
+  const date = new Date(timeString);
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+
+  return `${hours}h${minutes}`;
+}
+
 
   /* =========================
      CHARGEMENT DONNÉES
@@ -91,23 +123,23 @@ document.addEventListener("DOMContentLoaded", () => {
       <td>${data.client ?? ""}</td>
       <td>${data.bc ?? ""}</td>
       <td>${data.be ?? ""}</td>
-      <td>${data.datecreation || data.dateCreation || ""}</td>
-      <td>${data.dateemission || data.dateEmission || ""}</td>
-      <td>${data.dateprevision || data.datePrevision || ""}</td>
+      <td>${formatDateFR(data.datecreation || data.dateCreation)}</td>
+      <td>${formatDateFR(data.dateemission || data.dateEmission)}</td>
+      <td>${formatDateFR(data.dateprevision || data.datePrevision)}</td>
       <td>${data.typeproduit || data.typeProduit || ""}</td>
       <td>${data.designation ?? ""}</td>
       <td>${data.quantiteenlever || data.quantiteEnlever || ""}</td>
-      <td>${data.datelivraison || data.dateLivraison || ""}</td>
+      <td>${formatDateFR(data.datelivraison || data.dateLivraison)}</td>
       <td>${data.bl ?? ""}</td>
       <td>${data.quantitelivree || data.quantiteLivree || ""}</td>
       <td>${data.reste ?? ""}</td>
-      <td>${data.heurechargement || data.heureChargement || ""}</td>
+      <td>${formatHeureFR(data.heurechargement || data.heureChargement)}</td>
       <td>${data.slumpdepart || data.slumpDepart || ""}</td>
       <td>${data.transporteur ?? ""}</td>
       <td>${data.camion ?? ""}</td>
       <td>${data.conducteur ?? ""}</td>
-      <td>${data.heuredepart || data.heureDepart || ""}</td>
-      <td>${data.heurearrivee || data.heureArrivee || ""}</td>
+      <td>${formatHeureFR(data.heuredepart || data.heureDepart)}</td>
+      <td>${formatHeureFR(data.heurearrivee || data.heureArrivee)}</td>
       <td>${data.slumparrivee || data.slumpArrivee || ""}</td>
     `;
 
