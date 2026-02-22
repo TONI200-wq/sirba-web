@@ -60,6 +60,8 @@ function formatHeureFR(timeString) {
       });
 
       activerFiltres(); // IMPORTANT → réactive les filtres après reload
+      
+      initialiserToggleColonnes();
 
     } catch (err) {
       console.error("Erreur chargement:", err);
@@ -67,6 +69,49 @@ function formatHeureFR(timeString) {
   }
 
   chargerDonnees();
+
+
+  // =========================
+// TOGGLE COLONNES
+// =========================
+
+function initialiserToggleColonnes() {
+
+  const headers = document.querySelectorAll("#tableSuivi thead th");
+  const container = document.getElementById("columnToggles");
+
+  container.innerHTML = "";
+
+  headers.forEach((th, index) => {
+
+    const label = document.createElement("label");
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = true;
+
+    checkbox.addEventListener("change", () => {
+      toggleColonne(index, checkbox.checked);
+    });
+
+    label.appendChild(checkbox);
+    label.appendChild(document.createTextNode(th.innerText));
+
+    container.appendChild(label);
+  });
+}
+
+function toggleColonne(index, visible) {
+
+  const rows = document.querySelectorAll("#tableSuivi tr");
+
+  rows.forEach(row => {
+    if (row.children[index]) {
+      row.children[index].style.display = visible ? "" : "none";
+    }
+  });
+}
+
 
   /* =========================
      FORMULAIRE

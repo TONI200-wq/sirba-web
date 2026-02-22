@@ -155,7 +155,16 @@
 <!-- =========================
      FEUILLE EXCEL OFFICIELLE SIRBA
 ========================= -->
-<div class="excel-sheet">
+<div class="page-layout">
+
+  <!-- Panneau gauche -->
+  <div class="column-panel">
+    <h3>Colonnes</h3>
+    <div id="columnToggles"></div>
+  </div>
+
+  <!-- Feuille Excel -->
+  <div class="excel-sheet">
 
   <!-- ENTETE FEUILLE -->
   <div class="excel-header">
@@ -168,46 +177,47 @@
       CI-102 DJEREGBE
     </div>
 
-    <div class="excel-red-band"></div>
+      <div class="excel-red-band"></div>
+
+    </div>
+
+    <!-- TABLEAU -->
+    <div class="excel-table-wrapper">
+
+      <table id="tableSuivi" class="filterable">
+        <thead>
+          <tr>
+            <th>N° D'ORDRE</th>
+            <th>PERIODE</th>
+            <th>CLIENT</th>
+            <th>N° BC</th>
+            <th>N° BE</th>
+            <th>DATE CREATION</th>
+            <th>DATE EMISSION</th>
+            <th>DATE PREVISION LIVRAISON</th>
+            <th>TYPE PRODUIT</th>
+            <th>DESIGNATION</th>
+            <th>QTE A ENLEVER</th>
+            <th>DATE LIVRAISON</th>
+            <th>N° BL</th>
+            <th>QTE LIVREE</th>
+            <th>RESTE A LIVRER</th>
+            <th>HEURE CHARGEMENT</th>
+            <th>SLUMP TEST DEPART</th>
+            <th>TRANSPORTEUR</th>
+            <th>N° CAMION</th>
+            <th>NOM CONDUCTEUR</th>
+            <th>HEURE DEPART</th>
+            <th>HEURE ARRIVEE</th>
+            <th>SLUMP TEST ARRIVEE</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+    </div>
 
   </div>
-
-  <!-- TABLEAU -->
-  <div class="excel-table-wrapper">
-
-    <table id="tableSuivi" class="filterable">
-      <thead>
-        <tr>
-          <th>N° D'ORDRE</th>
-          <th>PERIODE</th>
-          <th>CLIENT</th>
-          <th>N° BC</th>
-          <th>N° BE</th>
-          <th>DATE CREATION</th>
-          <th>DATE EMISSION</th>
-          <th>DATE PREVISION LIVRAISON</th>
-          <th>TYPE PRODUIT</th>
-          <th>DESIGNATION</th>
-          <th>QTE A ENLEVER</th>
-          <th>DATE LIVRAISON</th>
-          <th>N° BL</th>
-          <th>QTE LIVREE</th>
-          <th>RESTE A LIVRER</th>
-          <th>HEURE CHARGEMENT</th>
-          <th>SLUMP TEST DEPART</th>
-          <th>TRANSPORTEUR</th>
-          <th>N° CAMION</th>
-          <th>NOM CONDUCTEUR</th>
-          <th>HEURE DEPART</th>
-          <th>HEURE ARRIVEE</th>
-          <th>SLUMP TEST ARRIVEE</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-
-  </div>
-
 </div>
 
 <script src="suivi-livraison.js"></script>
