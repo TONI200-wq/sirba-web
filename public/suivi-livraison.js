@@ -22,19 +22,27 @@ function formatDateFR(dateString) {
 function formatHeureFR(timeString) {
   if (!timeString) return "";
 
-  // si déjà format simple HH:MM
-  if (timeString.length === 5) {
-    return timeString.replace(":", "h");
+  // Si format HH:MM ou HH:MM:SS
+  if (timeString.includes(":") && timeString.length <= 8) {
+    const parts = timeString.split(":");
+    const hours = parts[0];
+    const minutes = parts[1];
+
+    return `${hours}h${minutes}`;
   }
 
-  // si format ISO
+  // Si format ISO complet
   const date = new Date(timeString);
-  const hours = String(date.getHours()).padStart(2, "0");
-  const minutes = String(date.getMinutes()).padStart(2, "0");
 
-  return `${hours}h${minutes}`;
+  if (!isNaN(date)) {
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    return `${hours}h${minutes}`;
+  }
+
+  return timeString;
 }
-
 
   /* =========================
      CHARGEMENT DONNÉES
