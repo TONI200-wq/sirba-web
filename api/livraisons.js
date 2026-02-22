@@ -13,23 +13,22 @@ module.exports = async (req, res) => {
   // =========================
   if (req.method === "GET") {
     try {
-      const result = await pool.query(
-        "SELECT * FROM livraisons ORDER BY id DESC"
+  
+      const test = await pool.query(
+        "SELECT current_database(), inet_server_addr();"
       );
-
-      return res.status(200).json(result.rows);
-
-    } 
-    catch (err) {
-        console.error("ERREUR DB :", err);
-      
-        return res.status(500).json({
-          error: "Erreur lecture DB",
-          detail: err.message
-        });
-      }
-      
+  
+      return res.status(200).json(test.rows);
+  
+    } catch (err) {
+      console.error("ERREUR DB :", err);
+      return res.status(500).json({
+        error: "Erreur lecture DB",
+        detail: err.message
+      });
+    }
   }
+  
 
   // =========================
   // POST -> ajouter livraison
