@@ -22,7 +22,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
+  overflow-x: auto;
 }
 
 /* =========================
@@ -332,8 +332,7 @@ body {
   border-top: 1px solid #ccc;
 
   /* SCROLL INTERNE */
-  overflow-x: auto;
-  overflow-y: auto;
+  overflow: auto;
 
   height: 60vh;
   max-height: 60vh;
