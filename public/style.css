@@ -18,11 +18,11 @@ body {
   padding: 0;
   color: var(--text-color);
 
-  /* footer bas écran */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow-x: auto;
+
+  overflow-x: hidden; /* IMPORTANT */
 }
 
 /* =========================
@@ -332,8 +332,8 @@ body {
   border-top: 1px solid #ccc;
 
   /* SCROLL INTERNE */
-  overflow: auto;
-
+  overflow-x: auto;
+  overflow-y: auto;
   height: 60vh;
   max-height: 60vh;
 
@@ -347,7 +347,7 @@ body {
 
 /* TABLEAU */
 #tableSuivi {
-  width: 100%;
+  width: 1800%;
   border-collapse: collapse;
   font-size: 13px;
 }
