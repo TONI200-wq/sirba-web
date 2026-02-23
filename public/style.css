@@ -288,6 +288,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow: auto; /* Enable both vertical and horizontal scrolling */
+  max-height: 100%; /* Ensure it doesn't exceed the viewport height */
 }
 
 .excel-header {
@@ -343,6 +344,8 @@ excel-table-wrapper
   min-width: 1400px;
 
   table-layout: auto;
+  overflow-x: auto; /* Allow horizontal scrolling */
+  display: block; /* Ensure table behaves like a block element for scrolling */
 }
 
 
