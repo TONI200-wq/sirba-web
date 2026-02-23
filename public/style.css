@@ -331,14 +331,18 @@ body {
   background: white;
   border-top: 1px solid #ccc;
 
-  /* SCROLL INTERNE */
   overflow-x: auto;
   overflow-y: auto;
+
   height: 60vh;
   max-height: 60vh;
 
   position: relative;
+
+  /* IMPORTANT */
+  display: block;
 }
+
 
 /* toujours visible pendant scroll page */
 .excel-sheet {
@@ -347,10 +351,14 @@ body {
 
 /* TABLEAU */
 #tableSuivi {
-  width: max-content;
   border-collapse: collapse;
   font-size: 13px;
+
+  display: table;
+  width: auto;
+  min-width: 100%;
 }
+
 
 #tableSuivi th,
 #tableSuivi td {
