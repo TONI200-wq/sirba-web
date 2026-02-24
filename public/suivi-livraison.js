@@ -270,4 +270,16 @@ function toggleColonne(index, visible) {
     });
   }
 
+  // =========================
+// BOUTON VISUALISER
+// =========================
+
+const visualiserBtn = document.getElementById("visualiserBtn");
+
+if (visualiserBtn) {
+  visualiserBtn.addEventListener("click", () => {
+    window.location.href = "Excel_suivi_livraison.html";
+  });
+}
+
 });
