@@ -509,23 +509,3 @@ footer {
   max-height: 60vh; /* taille maximale du tableau pour activer le scroll */
 }
 
-/* =========================
-   ORGANISATION PANNEAU COLONNES
-========================= */
-
-.columns-panel {
-  display: flex;
-  flex-direction: column;
-  height: 60vh;
-  overflow-y: auto;      /* scroll vertical */
-  overflow-x: hidden;    /* pas de scroll horizontal */
-}
-
-.columns-panel label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 6px;
-  white-space: nowrap;   /* empêche le texte de casser */
-  font-size: 13px;
-}
