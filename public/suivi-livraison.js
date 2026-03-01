@@ -278,12 +278,6 @@ const visualiserBtn = document.getElementById("visualiserBtn");
 
 if (visualiserBtn) {
   visualiserBtn.addEventListener("click", () => {
-    window.location.href = "Excel_suivi_livraison.html";
-  });
-}
-
-if (visualiserBtn) {
-  visualiserBtn.addEventListener("click", () => {
     console.log("Le bouton a été cliqué !");
     window.location.href = "Excel_suivi_livraison.html";
   });
