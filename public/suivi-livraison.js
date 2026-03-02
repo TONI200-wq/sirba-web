@@ -283,4 +283,112 @@ if (visualiserBtn) {
   });
 }
 
+// =========================
+// ASSISTANT BOITES DE DIALOGUE
+// =========================
+
+function calculerPeriode(dateLivraison) {
+
+  const date = new Date(dateLivraison);
+  const jour = date.getDate();
+  let mois = date.getMonth();
+
+  if (jour >= 21) {
+    mois += 1;
+  }
+
+  if (mois > 11) {
+    mois = 0;
+  }
+
+  const nomsMois = [
+    "Janvier","Février","Mars","Avril","Mai","Juin",
+    "Juillet","Août","Septembre","Octobre","Novembre","Décembre"
+  ];
+
+  return nomsMois[mois];
+}
+
+const assistantBtn = document.getElementById("assistantBtn");
+
+if (assistantBtn) {
+
+  assistantBtn.addEventListener("click", async () => {
+
+    const data = {};
+
+    data.client = prompt("Client :");
+    if (!data.client) return;
+
+    data.bc = prompt("N° BC :");
+    data.be = prompt("N° BE :");
+
+    data.dateCreation = prompt("Date de création (YYYY-MM-DD) :");
+    data.dateEmission = prompt("Date d'émission (YYYY-MM-DD) :");
+    data.datePrevision = prompt("Date de prévision (YYYY-MM-DD) :");
+
+    data.typeProduit = prompt("Type produit :");
+    data.designation = prompt("Désignation :");
+    data.quantiteEnlever = Number(prompt("Quantité à enlever :"));
+
+    data.dateLivraison = prompt("Date de livraison (YYYY-MM-DD) :");
+
+    data.periode = calculerPeriode(data.dateLivraison);
+
+    data.bl = prompt("N° BL :");
+    data.quantiteLivree = Number(prompt("Quantité livrée :"));
+
+    data.reste = data.quantiteEnlever - data.quantiteLivree;
+
+    data.heureChargement = prompt("Heure de chargement (HH:MM) :");
+    data.slumpDepart = prompt("Slump test départ :");
+    data.transporteur = prompt("Transporteur :");
+    data.camion = prompt("N° Camion :");
+    data.conducteur = prompt("Nom conducteur :");
+    data.heureDepart = prompt("Heure de départ (HH:MM) :");
+    data.heureArrivee = prompt("Heure d'arrivée (HH:MM) :");
+    data.slumpArrivee = prompt("Slump test arrivée :");
+
+    const resume = `
+CLIENT : ${data.client}
+PERIODE : ${data.periode}
+DATE LIVRAISON : ${data.dateLivraison}
+BC : ${data.bc}
+BE : ${data.be}
+PRODUIT : ${data.typeProduit}
+DESIGNATION : ${data.designation}
+QTE ENLEVER : ${data.quantiteEnlever}
+QTE LIVREE : ${data.quantiteLivree}
+RESTE : ${data.reste}
+`;
+
+    const confirmation = confirm("Vérifiez les informations :\n" + resume);
+
+    if (!confirmation) {
+      alert("Saisie annulée.");
+      return;
+    }
+
+    try {
+
+      const res = await fetch("/api/livraisons", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      if (!res.ok) throw new Error("Erreur serveur");
+
+      alert("Livraison enregistrée !");
+      await chargerDonnees();
+
+    } catch (err) {
+      console.error(err);
+      alert("Erreur lors de l'enregistrement.");
+    }
+
+  });
+
+}
+
 });
