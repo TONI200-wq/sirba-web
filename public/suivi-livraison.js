@@ -391,4 +391,19 @@ RESTE : ${data.reste}
 
 }
 
+// =========================
+// LANCEMENT AUTO SI VIENT DE CENTRALE
+// =========================
+
+const params = new URLSearchParams(window.location.search);
+
+if (params.get("auto") === "1") {
+  setTimeout(() => {
+    const assistantBtn = document.getElementById("assistantBtn");
+    if (assistantBtn) {
+      assistantBtn.click();
+    }
+  }, 300);
+}
+
 });
