@@ -225,8 +225,17 @@ body {
 }
 
 .sirba-top-line {
-  height: 6px;
-  background: var(--sirba-red);
+  display: none;
+}
+
+.sirba-header-main {
+  height: 72px;
+  background: var(--sirba-green);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  border-bottom: 6px solid var(--sirba-red);
 }
 
 .sirba-header-main {
