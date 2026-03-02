@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   const form = document.getElementById("livraisonForm");
-  const tableBody = document.querySelector("#tableSuivi tbody");
+  const tableBody = document.querySelector("#tableSuivi tbody") || null;
   const periodeInput = document.getElementById("periode");
   // =========================
 // FORMATAGE DATE & HEURE
@@ -68,7 +68,9 @@ function formatHeureFR(timeString) {
     }
   }
 
-  chargerDonnees();
+  if (tableBody) {
+    chargerDonnees();
+  }
 
 
   // =========================
@@ -116,52 +118,56 @@ function toggleColonne(index, visible) {
   /* =========================
      FORMULAIRE
   ========================= */
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const data = {
-      periode: periodeInput.value,
-      client: client.value,
-      bc: bc.value,
-      be: be.value,
-      dateCreation: dateCreation.value,
-      dateEmission: dateEmission.value,
-      datePrevision: datePrevision.value,
-      typeProduit: typeProduit.value,
-      designation: designation.value,
-      quantiteEnlever: Number(quantiteEnlever.value),
-      dateLivraison: dateLivraison.value,
-      bl: bl.value,
-      quantiteLivree: Number(quantiteLivree.value),
-      reste: Number(quantiteEnlever.value) - Number(quantiteLivree.value),
-      heureChargement: heureChargement.value,
-      slumpDepart: slumpDepart.value,
-      transporteur: transporteur.value,
-      camion: camion.value,
-      conducteur: conducteur.value,
-      heureDepart: heureDepart.value,
-      heureArrivee: heureArrivee.value,
-      slumpArrivee: slumpArrivee.value
-    };
-
-    try {
-
-      const res = await fetch("/api/livraisons", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      });
-
-      if (!res.ok) throw new Error("Erreur serveur");
-
-      await chargerDonnees();
-      form.reset();
-
-    } catch (err) {
-      console.error("Erreur enregistrement:", err);
-      alert("Erreur lors de l'enregistrement");
-    }
-  });
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+  
+      const data = {
+        periode: periodeInput.value,
+        client: client.value,
+        bc: bc.value,
+        be: be.value,
+        dateCreation: dateCreation.value,
+        dateEmission: dateEmission.value,
+        datePrevision: datePrevision.value,
+        typeProduit: typeProduit.value,
+        designation: designation.value,
+        quantiteEnlever: Number(quantiteEnlever.value),
+        dateLivraison: dateLivraison.value,
+        bl: bl.value,
+        quantiteLivree: Number(quantiteLivree.value),
+        reste: Number(quantiteEnlever.value) - Number(quantiteLivree.value),
+        heureChargement: heureChargement.value,
+        slumpDepart: slumpDepart.value,
+        transporteur: transporteur.value,
+        camion: camion.value,
+        conducteur: conducteur.value,
+        heureDepart: heureDepart.value,
+        heureArrivee: heureArrivee.value,
+        slumpArrivee: slumpArrivee.value
+      };
+  
+      try {
+        const res = await fetch("/api/livraisons", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+  
+        if (!res.ok) throw new Error("Erreur serveur");
+  
+        if (tableBody) {
+          await chargerDonnees();
+        }
+  
+        form.reset();
+  
+      } catch (err) {
+        console.error("Erreur enregistrement:", err);
+        alert("Erreur lors de l'enregistrement");
+      }
+    });
+  }
 
   /* =========================
      AJOUT LIGNE
