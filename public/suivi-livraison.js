@@ -309,47 +309,43 @@ function calculerPeriode(dateLivraison) {
   return nomsMois[mois];
 }
 
-const assistantBtn = document.getElementById("assistantBtn");
+async function lancerAssistant() {
 
-if (assistantBtn) {
+  const data = {};
 
-  assistantBtn.addEventListener("click", async () => {
+  data.client = prompt("Client :");
+  if (!data.client) return;
 
-    const data = {};
+  data.bc = prompt("N° BC :");
+  data.be = prompt("N° BE :");
 
-    data.client = prompt("Client :");
-    if (!data.client) return;
+  data.dateCreation = prompt("Date de création (YYYY-MM-DD) :");
+  data.dateEmission = prompt("Date d'émission (YYYY-MM-DD) :");
+  data.datePrevision = prompt("Date de prévision (YYYY-MM-DD) :");
 
-    data.bc = prompt("N° BC :");
-    data.be = prompt("N° BE :");
+  data.typeProduit = prompt("Type produit :");
+  data.designation = prompt("Désignation :");
+  data.quantiteEnlever = Number(prompt("Quantité à enlever :"));
 
-    data.dateCreation = prompt("Date de création (YYYY-MM-DD) :");
-    data.dateEmission = prompt("Date d'émission (YYYY-MM-DD) :");
-    data.datePrevision = prompt("Date de prévision (YYYY-MM-DD) :");
+  data.dateLivraison = prompt("Date de livraison (YYYY-MM-DD) :");
 
-    data.typeProduit = prompt("Type produit :");
-    data.designation = prompt("Désignation :");
-    data.quantiteEnlever = Number(prompt("Quantité à enlever :"));
+  data.periode = calculerPeriode(data.dateLivraison);
 
-    data.dateLivraison = prompt("Date de livraison (YYYY-MM-DD) :");
+  data.bl = prompt("N° BL :");
+  data.quantiteLivree = Number(prompt("Quantité livrée :"));
 
-    data.periode = calculerPeriode(data.dateLivraison);
+  data.reste = data.quantiteEnlever - data.quantiteLivree;
 
-    data.bl = prompt("N° BL :");
-    data.quantiteLivree = Number(prompt("Quantité livrée :"));
+  data.heureChargement = prompt("Heure de chargement (HH:MM) :");
+  data.slumpDepart = prompt("Slump test départ :");
+  data.transporteur = prompt("Transporteur :");
+  data.camion = prompt("N° Camion :");
+  data.conducteur = prompt("Nom conducteur :");
+  data.heureDepart = prompt("Heure de départ (HH:MM) :");
+  data.heureArrivee = prompt("Heure d'arrivée (HH:MM) :");
+  data.slumpArrivee = prompt("Slump test arrivée :");
 
-    data.reste = data.quantiteEnlever - data.quantiteLivree;
-
-    data.heureChargement = prompt("Heure de chargement (HH:MM) :");
-    data.slumpDepart = prompt("Slump test départ :");
-    data.transporteur = prompt("Transporteur :");
-    data.camion = prompt("N° Camion :");
-    data.conducteur = prompt("Nom conducteur :");
-    data.heureDepart = prompt("Heure de départ (HH:MM) :");
-    data.heureArrivee = prompt("Heure d'arrivée (HH:MM) :");
-    data.slumpArrivee = prompt("Slump test arrivée :");
-
-    const resume = `
+  const resume = `
 CLIENT : ${data.client}
 PERIODE : ${data.periode}
 DATE LIVRAISON : ${data.dateLivraison}
@@ -362,33 +358,30 @@ QTE LIVREE : ${data.quantiteLivree}
 RESTE : ${data.reste}
 `;
 
-    const confirmation = confirm("Vérifiez les informations :\n" + resume);
+  const confirmation = confirm("Vérifiez les informations :\n" + resume);
 
-    if (!confirmation) {
-      alert("Saisie annulée.");
-      return;
-    }
+  if (!confirmation) {
+    alert("Saisie annulée.");
+    return;
+  }
 
-    try {
+  try {
 
-      const res = await fetch("/api/livraisons", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      });
+    const res = await fetch("/api/livraisons", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
 
-      if (!res.ok) throw new Error("Erreur serveur");
+    if (!res.ok) throw new Error("Erreur serveur");
 
-      alert("Livraison enregistrée !");
-      await chargerDonnees();
+    alert("Livraison enregistrée !");
+    await chargerDonnees();
 
-    } catch (err) {
-      console.error(err);
-      alert("Erreur lors de l'enregistrement.");
-    }
-
-  });
-
+  } catch (err) {
+    console.error(err);
+    alert("Erreur lors de l'enregistrement.");
+  }
 }
 
 // =========================
@@ -399,10 +392,7 @@ const params = new URLSearchParams(window.location.search);
 
 if (params.get("auto") === "1") {
   setTimeout(() => {
-    const assistantBtn = document.getElementById("assistantBtn");
-    if (assistantBtn) {
-      assistantBtn.click();
-    }
+    lancerAssistant();
   }, 300);
 }
 
