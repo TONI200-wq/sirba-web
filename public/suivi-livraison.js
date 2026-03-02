@@ -390,6 +390,7 @@ RESTE : ${data.reste}
     alert("Erreur lors de l'enregistrement.");
   }
 }
+window.lancerAssistant = lancerAssistant;
 
 // =========================
 // LANCEMENT AUTO SI VIENT DE CENTRALE
