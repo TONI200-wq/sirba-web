@@ -1,3 +1,4 @@
+console.log("✅ JS suivi-livraison chargé");
 document.addEventListener("DOMContentLoaded", () => {
 
   const form = document.getElementById("livraisonForm");
