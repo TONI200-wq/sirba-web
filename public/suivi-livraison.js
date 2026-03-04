@@ -401,6 +401,7 @@ const params = new URLSearchParams(window.location.search);
 if (params.get("auto") === "1") {
   setTimeout(() => {
     lancerAssistant();
+    window.history.replaceState({}, document.title, "suivi-livraison.html");
   }, 300);
 }
 
