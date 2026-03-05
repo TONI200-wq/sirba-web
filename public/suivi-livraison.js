@@ -55,7 +55,7 @@ function formatHeureFR(timeString) {
       tableBody.innerHTML = "";
 
       data.forEach((item, index) => {
-        const numero = item.ordre || item.id || (index + 1);
+        const numero = index + 1;
         ajouterLigne(item, numero);
       });
 
