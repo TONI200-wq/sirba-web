@@ -1,4 +1,4 @@
-console.log("✅ JS suivi-livraison chargé");
+//console.log("✅ JS suivi-livraison chargé");
 document.addEventListener("DOMContentLoaded", () => {
 
   const form = document.getElementById("livraisonForm");
@@ -372,23 +372,41 @@ RESTE : ${data.reste}
     return;
   }
 
-  try {
+  // =========================
+// REMPLIR LE FORMULAIRE
+// =========================
+document.getElementById("periode").value = "";
+document.getElementById("client").value = data.client;
+document.getElementById("bc").value = data.bc;
+document.getElementById("be").value = data.be;
 
-    const res = await fetch("/api/livraisons", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    });
+document.getElementById("dateCreation").value = data.dateCreation;
+document.getElementById("dateEmission").value = data.dateEmission;
+document.getElementById("datePrevision").value = data.datePrevision;
 
-    if (!res.ok) throw new Error("Erreur serveur");
+document.getElementById("typeProduit").value = data.typeProduit;
+document.getElementById("designation").value = data.designation;
 
-    alert("Livraison enregistrée !");
-    await chargerDonnees();
+document.getElementById("quantiteEnlever").value = data.quantiteEnlever;
 
-  } catch (err) {
-    console.error(err);
-    alert("Erreur lors de l'enregistrement.");
-  }
+document.getElementById("dateLivraison").value = data.dateLivraison;
+
+document.getElementById("bl").value = data.bl;
+document.getElementById("quantiteLivree").value = data.quantiteLivree;
+
+document.getElementById("heureChargement").value = data.heureChargement;
+document.getElementById("slumpDepart").value = data.slumpDepart;
+
+document.getElementById("transporteur").value = data.transporteur;
+document.getElementById("camion").value = data.camion;
+document.getElementById("conducteur").value = data.conducteur;
+
+document.getElementById("heureDepart").value = data.heureDepart;
+document.getElementById("heureArrivee").value = data.heureArrivee;
+
+document.getElementById("slumpArrivee").value = data.slumpArrivee;
+
+alert("Les données ont été transférées dans le formulaire. Vérifiez puis cliquez sur VALIDER.");
 }
 window.lancerAssistant = lancerAssistant;
 
