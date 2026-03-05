@@ -13,23 +13,24 @@ module.exports = async (req, res) => {
   // =========================
   if (req.method === "GET") {
     try {
-  
+
       const result = await pool.query(
         "SELECT * FROM livraisons ORDER BY id DESC"
       );
-  
+
       return res.status(200).json(result.rows);
-  
+
     } catch (err) {
+
       console.error("ERREUR DB :", err);
-  
+
       return res.status(500).json({
         error: "Erreur lecture DB",
         detail: err.message
       });
+
     }
   }
-  
 
   // =========================
   // POST -> ajouter livraison
@@ -37,7 +38,7 @@ module.exports = async (req, res) => {
   if (req.method === "POST") {
     try {
 
-      const d = req.body;
+      const d = req.body || {};
 
       const result = await pool.query(
         `INSERT INTO livraisons (
@@ -61,13 +62,13 @@ module.exports = async (req, res) => {
           d.client,
           d.bc,
           d.be,
-          d.dateCreation,
-          d.dateEmission,
-          d.datePrevision,
+          d.dateCreation || null,
+          d.dateEmission || null,
+          d.datePrevision || null,
           d.typeProduit,
           d.designation,
           d.quantiteEnlever,
-          d.dateLivraison,
+          d.dateLivraison || null,
           d.bl,
           d.quantiteLivree,
           d.reste,
@@ -84,48 +85,52 @@ module.exports = async (req, res) => {
 
       return res.status(200).json(result.rows[0]);
 
-    } 
-    
-    catch (err) {
-        console.error("ERREUR DB :", err);
-      
-        return res.status(500).json({
-          error: "Erreur insertion DB",
-          detail: err.message
-        });
-      }      
-      
+    } catch (err) {
+
+      console.error("ERREUR DB :", err);
+
+      return res.status(500).json({
+        error: "Erreur insertion DB",
+        detail: err.message
+      });
+
+    }
   }
 
+  // =========================
+  // DELETE -> supprimer livraison
+  // =========================
+  if (req.method === "DELETE") {
+
+    try {
+
+      const { id } = req.query;
+
+      await pool.query(
+        "DELETE FROM livraisons WHERE id = $1",
+        [id]
+      );
+
+      return res.status(200).json({ success: true });
+
+    } catch (err) {
+
+      console.error("ERREUR DB :", err);
+
+      return res.status(500).json({
+        error: "Erreur suppression",
+        detail: err.message
+      });
+
+    }
+  }
+
+  // =========================
   // méthode non autorisée
-  res.status(405).json({ error: "Method not allowed" });
+  // =========================
+
+  return res.status(405).json({
+    error: "Method not allowed"
+  });
+
 };
-
-// =========================
-// DELETE -> supprimer livraison
-// =========================
-
-if (req.method === "DELETE") {
-
-  try {
-
-    const { id } = req.query;
-
-    await pool.query(
-      "DELETE FROM livraisons WHERE id = $1",
-      [id]
-    );
-
-    return res.status(200).json({ success: true });
-
-  } catch (err) {
-
-    console.error(err);
-
-    return res.status(500).json({
-      error: "Erreur suppression"
-    });
-
-  }
-
-}
