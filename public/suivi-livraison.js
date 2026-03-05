@@ -192,6 +192,9 @@ function toggleColonne(index, visible) {
       <td>${formatHeureFR(data.heuredepart || data.heureDepart)}</td>
       <td>${formatHeureFR(data.heurearrivee || data.heureArrivee)}</td>
       <td>${data.slumparrivee || data.slumpArrivee || ""}</td>
+      <td>
+      <button class="deleteBtn" data-id="${data.id}">❌</button>
+      </td>
     `;
 
     tableBody.appendChild(row);
@@ -280,5 +283,25 @@ if (visualiserBtn) {
     window.location.href = "Excel_suivi_livraison.html";
   });
 }
+
+});
+
+
+document.addEventListener("click", async (e) => {
+
+  if (e.target.classList.contains("deleteBtn")) {
+
+    const id = e.target.dataset.id;
+
+    const confirmation = confirm("Supprimer cette livraison ?");
+
+    if (!confirmation) return;
+
+    await fetch("/api/livraisons?id=" + id, {
+      method: "DELETE"
+    });
+
+    chargerDonnees();
+  }
 
 });

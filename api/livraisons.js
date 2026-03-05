@@ -100,3 +100,32 @@ module.exports = async (req, res) => {
   // méthode non autorisée
   res.status(405).json({ error: "Method not allowed" });
 };
+
+// =========================
+// DELETE -> supprimer livraison
+// =========================
+
+if (req.method === "DELETE") {
+
+  try {
+
+    const { id } = req.query;
+
+    await pool.query(
+      "DELETE FROM livraisons WHERE id = $1",
+      [id]
+    );
+
+    return res.status(200).json({ success: true });
+
+  } catch (err) {
+
+    console.error(err);
+
+    return res.status(500).json({
+      error: "Erreur suppression"
+    });
+
+  }
+
+}
