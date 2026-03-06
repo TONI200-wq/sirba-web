@@ -53,6 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
     
     };
     
+    console.log("Données soumises : ", data);  // Ajoutez ceci pour vérifier les données
+    
     try{
     
     const res = await fetch("/api/rapport",{
@@ -89,6 +91,8 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("visualiserBtn")
     .addEventListener("click", () => {
     
+    console.log("Le bouton Visualiser a été cliqué.");
+
     window.location.href = "Excel_rapport_journalier.html";
     
     });
