@@ -264,8 +264,17 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("visualiserBtn")
     .addEventListener("click", () => {
 
-    window.location.href = "Excel_rapport_journalier.html";
-
+        document
+        .getElementById("visualiserBtn")
+        .addEventListener("click", () => {
+        
+        document
+        .querySelector(".excel-layout")
+        .scrollIntoView({
+        behavior: "smooth"
+        });
+        
+        });
     });
     
     });
