@@ -538,3 +538,9 @@ footer {
   white-space: nowrap;   /* empêche le texte de casser */
   font-size: 13px;
 }
+
+thead th{
+  position: sticky;
+  top:0;
+  z-index:2;
+  }
