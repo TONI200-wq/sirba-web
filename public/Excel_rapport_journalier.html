@@ -3,12 +3,13 @@
 
 <head>
 <meta charset="UTF-8">
-<title>SIRBA — Rapport de production</title>
+<title>Feuille Excel - Rapport Production</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header class="sirba-header">
 
 <div class="sirba-top-line"></div>
@@ -19,9 +20,9 @@
 <img src="images/logo.png" class="sirba-logo">
 
 <div class="sirba-title">
-<h1>RAPPORT DE PRODUCTION</h1>
-<span>CENTRALE DE DJEREGBE</span>
+<h1>Feuille Excel - Rapport Production</h1>
 </div>
+
 </div>
 
 <a href="rapport-journalier.html" class="btn sirba-back">
@@ -29,14 +30,51 @@
 </a>
 
 </div>
+
 </header>
 
 
-<section class="section">
+<div class="excel-layout">
 
-<h2>Rapport journalier</h2>
+
+<!-- PANNEAU COLONNES -->
+<div class="columns-panel">
+
+<h3>Colonnes</h3>
 
 <div id="columnToggles"></div>
+
+</div>
+
+
+
+<!-- FEUILLE EXCEL -->
+
+<div class="excel-sheet">
+
+
+<div class="excel-header">
+
+<div class="excel-logo-zone">
+
+<img src="images/logo.png" class="excel-logo">
+
+</div>
+
+
+<div class="excel-green-band">
+
+CI-102 DJEREGBE
+
+</div>
+
+<div class="excel-red-band"></div>
+
+</div>
+
+
+
+<div class="excel-table-wrapper">
 
 <table id="tableRapport">
 
@@ -86,9 +124,18 @@
 
 </table>
 
-</section>
+</div>
+
+
+</div>
+
+
+</div>
+
+
 
 <script src="Excel_rapport_journalier.js"></script>
 
 </body>
+
 </html>
