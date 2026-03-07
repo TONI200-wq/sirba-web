@@ -544,3 +544,36 @@ thead th{
   top:0;
   z-index:2;
   }
+
+  /* TABLEAU EXCEL */
+
+.excel-table-wrapper table{
+  border-collapse: collapse;
+  width: max-content;
+  background:white;
+  }
+  
+  .excel-table-wrapper th,
+  .excel-table-wrapper td{
+  
+  border:1px solid #bfbfbf;
+  padding:6px 8px;
+  font-size:12px;
+  text-align:center;
+  
+  }
+  
+  /* entête style Excel */
+  
+  .excel-table-wrapper thead th{
+  
+  background:#f3f3f3;
+  font-weight:600;
+  
+  }
+  
+  /* lignes alternées */
+  
+  .excel-table-wrapper tbody tr:nth-child(even){
+  background:#fafafa;
+  }
