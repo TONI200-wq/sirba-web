@@ -12,7 +12,6 @@ module.exports = async (req, res) => {
   ========================= */
 
   if (req.method === "GET") {
-
     try {
 
       const result = await pool.query(
@@ -31,7 +30,6 @@ module.exports = async (req, res) => {
       });
 
     }
-
   }
 
 
@@ -40,14 +38,13 @@ module.exports = async (req, res) => {
   ========================= */
 
   if (req.method === "POST") {
-
     try {
 
-      const d = req.body;
+      const d = JSON.parse(req.body);
 
       const result = await pool.query(
-
-        `INSERT INTO rapport (
+        `
+        INSERT INTO rapport (
 
           date_production,
           type_beton,
@@ -94,8 +91,8 @@ module.exports = async (req, res) => {
 
         )
 
-        RETURNING *`,
-
+        RETURNING *
+        `,
         [
 
           d.date_production,
@@ -130,7 +127,6 @@ module.exports = async (req, res) => {
           d.gra4
 
         ]
-
       );
 
       return res.status(200).json(result.rows[0]);
@@ -145,7 +141,6 @@ module.exports = async (req, res) => {
       });
 
     }
-
   }
 
 
@@ -154,7 +149,6 @@ module.exports = async (req, res) => {
   ========================= */
 
   if (req.method === "DELETE") {
-
     try {
 
       const { id } = req.query;
@@ -177,7 +171,6 @@ module.exports = async (req, res) => {
       });
 
     }
-
   }
 
 
