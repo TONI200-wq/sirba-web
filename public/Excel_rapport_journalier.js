@@ -1,3 +1,15 @@
+function formatDateFR(dateString){
+
+    const date = new Date(dateString);
+    
+    const day = String(date.getDate()).padStart(2,"0");
+    const month = String(date.getMonth()+1).padStart(2,"0");
+    const year = date.getFullYear();
+    
+    return `${day}/${month}/${year}`;
+    
+    }
+
 document.addEventListener("DOMContentLoaded", async () => {
 
     const table = document.getElementById("tableRapport");
@@ -16,7 +28,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     tr.innerHTML = `
     
     <td>${index + 1}</td>
-    <td>${row.date_production}</td>
+    <td>${formatDateFR(row.date_production)}</td>
     <td>${row.type_beton}</td>
     <td>${row.volume}</td>
     <td>${row.client}</td>
