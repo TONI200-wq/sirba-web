@@ -68,6 +68,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     tableBody.appendChild(tr);
     
     });
+
+    activerFiltres();
     
     } catch(err){
     
@@ -128,3 +130,89 @@ document.addEventListener("DOMContentLoaded", async () => {
     location.reload();
     
     }
+
+
+    function activerFiltres(){
+
+        const headers = document.querySelectorAll("#tableRapport thead th");
+        
+        headers.forEach((th,colIndex)=>{
+        
+        th.addEventListener("click",(e)=>{
+        
+        document.querySelectorAll(".filter-menu").forEach(m=>m.remove());
+        
+        const menu = document.createElement("div");
+        menu.className = "filter-menu";
+        
+        const values = new Set();
+        
+        document.querySelectorAll("#tableRapport tbody tr").forEach(row=>{
+        values.add(row.children[colIndex].innerText);
+        });
+        
+        
+        /* Tout afficher */
+        
+        const showAll = document.createElement("div");
+        showAll.textContent = "Tout afficher";
+        
+        showAll.onclick = ()=>{
+        
+        document.querySelectorAll("#tableRapport tbody tr")
+        .forEach(r=>r.style.display="");
+        
+        menu.remove();
+        
+        };
+        
+        menu.appendChild(showAll);
+        
+        
+        /* Valeurs uniques */
+        
+        values.forEach(value=>{
+        
+        const option = document.createElement("div");
+        
+        option.textContent = value || "(vide)";
+        
+        option.onclick = ()=>{
+        
+        document.querySelectorAll("#tableRapport tbody tr")
+        .forEach(row=>{
+        
+        if(row.children[colIndex].innerText===value){
+        row.style.display="";
+        }else{
+        row.style.display="none";
+        }
+        
+        });
+        
+        menu.remove();
+        
+        };
+        
+        menu.appendChild(option);
+        
+        });
+        
+        document.body.appendChild(menu);
+        
+        const rect = th.getBoundingClientRect();
+        
+        menu.style.top = rect.bottom + window.scrollY + "px";
+        menu.style.left = rect.left + window.scrollX + "px";
+        
+        e.stopPropagation();
+        
+        });
+        
+        });
+        
+        document.addEventListener("click",()=>{
+        document.querySelectorAll(".filter-menu").forEach(m=>m.remove());
+        });
+        
+        }
