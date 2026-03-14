@@ -350,24 +350,26 @@ body {
   overflow:auto;
 }
 
-#tableSuivi {
-  width: 100%;
+#tableSuivi,
+#tableRapport {
+  width: max-content;
   border-collapse: collapse;
   font-size: 13px;
-  min-width: 1200px; /* largeur minimale du tableau pour activer le scroll horizontal */
-  table-layout: auto;
-  display: block; /* permet de forcer le tableau à se comporter comme un bloc et activer le scroll horizontal */
+  min-width: 1200px;
 }
 
 #tableSuivi th,
-#tableSuivi td {
+#tableSuivi td,
+#tableRapport th,
+#tableRapport td {
   border: 1px solid #ccc;
   padding: 6px 8px;
   text-align: center;
   white-space: nowrap;
 }
 
-.excel-sheet #tableSuivi thead th {
+.excel-sheet #tableSuivi thead th,
+.excel-sheet #tableRapport thead th {
   background: var(--sirba-green);
   color: white;
   font-weight: 700;
@@ -405,7 +407,8 @@ footer {
 /* =========================
    FILTRES STYLE EXCEL
 ========================= */
-#tableSuivi thead th {
+#tableSuivi thead th,
+#tableRapport thead th {
   position: sticky;
   top: 0;
   z-index: 5;
@@ -413,7 +416,8 @@ footer {
   padding-right: 22px;
 }
 
-#tableSuivi thead th::after {
+#tableSuivi thead th::after,
+#tableRapport thead th::after {
   content: "▼";
   position: absolute;
   right: 6px;
@@ -566,9 +570,9 @@ thead th{
   /* entête style Excel */
   
   .excel-table-wrapper thead th{
-  
-  background:#f3f3f3;
-  font-weight:600;
+    background: var(--sirba-green);
+    color:white;
+    font-weight:700;
   
   }
   
@@ -603,4 +607,20 @@ thead th{
     
     background:#f0f0f0;
     
+    }
+
+
+    .excel-table-wrapper table{
+      border-collapse: collapse;
+    }
+    
+    .excel-table-wrapper th,
+    .excel-table-wrapper td{
+      border:1px solid #d0d0d0;
+      padding:6px 10px;
+      font-size:12px;
+    }
+    
+    .excel-table-wrapper tbody tr:hover{
+      background:#eaf3ff;
     }
