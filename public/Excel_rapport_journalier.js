@@ -20,6 +20,7 @@ function formatDateFR(dateString){
           const res = await fetch("/api/rapport");
           const data = await res.json();
       
+          // Insertion des données dans le tableau
           data.forEach((row, index) => {
             const tr = document.createElement("tr");
       
@@ -64,23 +65,22 @@ function formatDateFR(dateString){
             tableBody.appendChild(tr);
           });
       
-          // Appel de la fonction de calcul des totaux
+          // Calcul des totaux et mise à jour de la ligne du bas
           calculerTotaux(data);
       
+          // Appeler les filtres
           activerFiltres();
       
         } catch (err) {
           console.error("Erreur chargement :", err);
         }
       
-        // Appel de la fonction de filtre
+        // Fonction de filtrage des colonnes
         function activerFiltres() {
           const headers = document.querySelectorAll("#tableRapport thead th");
       
           headers.forEach((th, colIndex) => {
-      
             th.addEventListener("click", (e) => {
-      
               document.querySelectorAll(".filter-menu").forEach(m => m.remove());
       
               const menu = document.createElement("div");
@@ -92,71 +92,49 @@ function formatDateFR(dateString){
                 values.add(row.children[colIndex].innerText);
               });
       
-              // Tout afficher
+              // Afficher toutes les options
               const showAll = document.createElement("div");
               showAll.textContent = "Tout afficher";
-      
               showAll.onclick = () => {
-      
-                document.querySelectorAll("#tableRapport tbody tr")
-                  .forEach(r => r.style.display = "");
-      
+                document.querySelectorAll("#tableRapport tbody tr").forEach(r => r.style.display = "");
                 menu.remove();
-      
               };
-      
               menu.appendChild(showAll);
       
-              // Valeurs uniques
+              // Afficher les valeurs uniques
               values.forEach(value => {
-      
                 const option = document.createElement("div");
-      
                 option.textContent = value || "(vide)";
-      
                 option.onclick = () => {
-      
-                  document.querySelectorAll("#tableRapport tbody tr")
-                    .forEach(row => {
-      
-                      if (row.children[colIndex].innerText === value) {
-                        row.style.display = "";
-                      } else {
-                        row.style.display = "none";
-                      }
-      
-                    });
-      
+                  document.querySelectorAll("#tableRapport tbody tr").forEach(row => {
+                    if (row.children[colIndex].innerText === value) {
+                      row.style.display = "";
+                    } else {
+                      row.style.display = "none";
+                    }
+                  });
                   menu.remove();
-      
                 };
-      
                 menu.appendChild(option);
-      
               });
       
               document.body.appendChild(menu);
       
               const rect = th.getBoundingClientRect();
-      
               menu.style.top = rect.bottom + window.scrollY + "px";
               menu.style.left = rect.left + window.scrollX + "px";
-      
               e.stopPropagation();
-      
             });
-      
           });
       
           document.addEventListener("click", () => {
             document.querySelectorAll(".filter-menu").forEach(m => m.remove());
           });
-      
         }
       
+        // Fonction de suppression d'une ligne
         async function supprimer(id) {
           const confirmation = confirm("Supprimer cette ligne ?");
-      
           if (!confirmation) return;
       
           await fetch("/api/rapport?id=" + id, {
@@ -166,6 +144,7 @@ function formatDateFR(dateString){
           location.reload();
         }
       
+        // Fonction de calcul des totaux
         function calculerTotaux(data) {
           let totalVolume = 0;
           let totalLafarge = 0;
@@ -197,6 +176,7 @@ function formatDateFR(dateString){
             totalAdit7 += Number(row.adit7 || 0);
           });
       
+          // Affichage des totaux dans la ligne du bas
           document.getElementById("totalVolume").textContent = totalVolume;
           document.getElementById("totalLafarge").textContent = totalLafarge;
           document.getElementById("totalCimbenin").textContent = totalCimbenin;
