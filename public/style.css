@@ -624,3 +624,12 @@ thead th{
     .excel-table-wrapper tbody tr:hover{
       background:#eaf3ff;
     }
+
+
+    tfoot td{
+
+      background:#f4f4f4;
+      font-weight:bold;
+      border-top:2px solid #333;
+      
+      }
