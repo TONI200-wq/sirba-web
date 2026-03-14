@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     const res = await fetch("/api/rapport");
     const data = await res.json();
-    calculerTotaux(data);
+    /*calculerTotaux(data);*/
     
     data.forEach((row,index)=>{
     
