@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     const res = await fetch("/api/rapport");
     const data = await res.json();
+    calculerTotaux(data);
     
     data.forEach((row,index)=>{
     
@@ -216,3 +217,59 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
         
         }
+
+
+
+        function calculerTotaux(data){
+
+            let totalVolume = 0;
+            let totalLafarge = 0;
+            let totalCimbenin = 0;
+            let totalCHF = 0;
+            let totalEau = 0;
+            
+            let totalAdit1 = 0;
+            let totalAdit2 = 0;
+            let totalAdit3 = 0;
+            let totalAdit4 = 0;
+            let totalAdit5 = 0;
+            let totalAdit6 = 0;
+            let totalAdit7 = 0;
+            
+            data.forEach(row=>{
+            
+            totalVolume += Number(row.volume || 0);
+            
+            totalLafarge += Number(row.ciment_lafarge || 0);
+            totalCimbenin += Number(row.ciment_cimbenin || 0);
+            totalCHF += Number(row.ciment_chf || 0);
+            
+            totalEau += Number(row.eau || 0);
+            
+            totalAdit1 += Number(row.adit1 || 0);
+            totalAdit2 += Number(row.adit2 || 0);
+            totalAdit3 += Number(row.adit3 || 0);
+            totalAdit4 += Number(row.adit4 || 0);
+            totalAdit5 += Number(row.adit5 || 0);
+            totalAdit6 += Number(row.adit6 || 0);
+            totalAdit7 += Number(row.adit7 || 0);
+            
+            });
+            
+            document.getElementById("totalVolume").textContent = totalVolume;
+            
+            document.getElementById("totalLafarge").textContent = totalLafarge;
+            document.getElementById("totalCimbenin").textContent = totalCimbenin;
+            document.getElementById("totalCHF").textContent = totalCHF;
+            
+            document.getElementById("totalEau").textContent = totalEau;
+            
+            document.getElementById("totalAdit1").textContent = totalAdit1;
+            document.getElementById("totalAdit2").textContent = totalAdit2;
+            document.getElementById("totalAdit3").textContent = totalAdit3;
+            document.getElementById("totalAdit4").textContent = totalAdit4;
+            document.getElementById("totalAdit5").textContent = totalAdit5;
+            document.getElementById("totalAdit6").textContent = totalAdit6;
+            document.getElementById("totalAdit7").textContent = totalAdit7;
+            
+            }
