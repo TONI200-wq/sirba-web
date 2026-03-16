@@ -113,7 +113,7 @@ function formatDateFR(dateString){
                       row.style.display = "none";
                     }
                   });
-                  calculerTotaux();
+                  /*calculerTotaux();*/
                   menu.remove();
                 };
                 menu.appendChild(option);
