@@ -66,7 +66,7 @@ function formatDateFR(dateString){
           });
       
           // Calcul des totaux et mise à jour de la ligne du bas
-          calculerTotaux(data);
+          calculerTotaux();
       
           // Appeler les filtres
           activerFiltres();
@@ -113,6 +113,7 @@ function formatDateFR(dateString){
                       row.style.display = "none";
                     }
                   });
+                  calculerTotaux();
                   menu.remove();
                 };
                 menu.appendChild(option);
@@ -145,73 +146,83 @@ function formatDateFR(dateString){
         }
       
         // Fonction de calcul des totaux
-function calculerTotaux(data) {
-    let totalVolume = 0;
-    let totalLafarge = 0;
-    let totalCimbenin = 0;
-    let totalCHF = 0;
-    let totalEau = 0;
-  
-    let totalAdit1 = 0;
-    let totalAdit2 = 0;
-    let totalAdit3 = 0;
-    let totalAdit4 = 0;
-    let totalAdit5 = 0;
-    let totalAdit6 = 0;
-    let totalAdit7 = 0;
-  
-    // Calcul des totaux pour chaque colonne
-    data.forEach(row => {
-      totalVolume += Number(row.volume || 0);
-      totalLafarge += Number(row.ciment_lafarge || 0);
-      totalCimbenin += Number(row.ciment_cimbenin || 0);
-      totalCHF += Number(row.ciment_chf || 0);
-      totalEau += Number(row.eau || 0);
-  
-      totalAdit1 += Number(row.adit1 || 0);
-      totalAdit2 += Number(row.adit2 || 0);
-      totalAdit3 += Number(row.adit3 || 0);
-      totalAdit4 += Number(row.adit4 || 0);
-      totalAdit5 += Number(row.adit5 || 0);
-      totalAdit6 += Number(row.adit6 || 0);
-      totalAdit7 += Number(row.adit7 || 0);
-    });
-  
-    // Mettre à jour les totaux dans le pied de tableau (tfoot)
-    const totalVolumeCell = document.getElementById("totalVolume");
-    if (totalVolumeCell) totalVolumeCell.textContent = totalVolume;
-  
-    const totalLafargeCell = document.getElementById("totalLafarge");
-    if (totalLafargeCell) totalLafargeCell.textContent = totalLafarge;
-  
-    const totalCimbeninCell = document.getElementById("totalCimbenin");
-    if (totalCimbeninCell) totalCimbeninCell.textContent = totalCimbenin;
-  
-    const totalCHFCell = document.getElementById("totalCHF");
-    if (totalCHFCell) totalCHFCell.textContent = totalCHF;
-  
-    const totalEauCell = document.getElementById("totalEau");
-    if (totalEauCell) totalEauCell.textContent = totalEau;
-  
-    const totalAdit1Cell = document.getElementById("totalAdit1");
-    if (totalAdit1Cell) totalAdit1Cell.textContent = totalAdit1;
-  
-    const totalAdit2Cell = document.getElementById("totalAdit2");
-    if (totalAdit2Cell) totalAdit2Cell.textContent = totalAdit2;
-  
-    const totalAdit3Cell = document.getElementById("totalAdit3");
-    if (totalAdit3Cell) totalAdit3Cell.textContent = totalAdit3;
-  
-    const totalAdit4Cell = document.getElementById("totalAdit4");
-    if (totalAdit4Cell) totalAdit4Cell.textContent = totalAdit4;
-  
-    const totalAdit5Cell = document.getElementById("totalAdit5");
-    if (totalAdit5Cell) totalAdit5Cell.textContent = totalAdit5;
-  
-    const totalAdit6Cell = document.getElementById("totalAdit6");
-    if (totalAdit6Cell) totalAdit6Cell.textContent = totalAdit6;
-  
-    const totalAdit7Cell = document.getElementById("totalAdit7");
-    if (totalAdit7Cell) totalAdit7Cell.textContent = totalAdit7;
-  }
+        function calculerTotaux(){
+
+            const rows = document.querySelectorAll("#tableRapport tbody tr");
+            
+            let totalVolume = 0;
+            let totalLafarge = 0;
+            let totalCimbenin = 0;
+            let totalCHF = 0;
+            let totalEau = 0;
+            
+            let totalAdit1 = 0;
+            let totalAdit2 = 0;
+            let totalAdit3 = 0;
+            let totalAdit4 = 0;
+            let totalAdit5 = 0;
+            let totalAdit6 = 0;
+            let totalAdit7 = 0;
+            
+            let totalAgre1 = 0;
+            let totalAgre2 = 0;
+            let totalAgre3 = 0;
+            let totalAgre4 = 0;
+            
+            rows.forEach(row=>{
+            
+            if(row.style.display === "none") return;
+            
+            const cells = row.children;
+            
+            totalVolume += Number(cells[3].innerText || 0);
+            
+            totalLafarge += Number(cells[5].innerText || 0);
+            totalCimbenin += Number(cells[6].innerText || 0);
+            totalCHF += Number(cells[7].innerText || 0);
+            
+            const agre1 = Number(cells[8].innerText || 0);
+            const agre2 = Number(cells[9].innerText || 0);
+            const agre3 = Number(cells[10].innerText || 0);
+            const agre4 = Number(cells[11].innerText || 0);
+            
+            totalAgre1 += agre1;
+            totalAgre2 += agre2;
+            totalAgre3 += agre3;
+            totalAgre4 += agre4;
+            
+            totalEau += Number(cells[12].innerText || 0);
+            
+            totalAdit1 += Number(cells[13].innerText || 0);
+            totalAdit2 += Number(cells[14].innerText || 0);
+            totalAdit3 += Number(cells[15].innerText || 0);
+            totalAdit4 += Number(cells[16].innerText || 0);
+            totalAdit5 += Number(cells[17].innerText || 0);
+            totalAdit6 += Number(cells[18].innerText || 0);
+            totalAdit7 += Number(cells[19].innerText || 0);
+            
+            });
+            
+            document.getElementById("totalVolume").textContent = totalVolume;
+            
+            document.getElementById("totalLafarge").textContent = totalLafarge;
+            document.getElementById("totalCimbenin").textContent = totalCimbenin;
+            document.getElementById("totalCHF").textContent = totalCHF;
+
+            document.getElementById("totalAgre1").textContent = totalAgre1;
+            document.getElementById("totalAgre2").textContent = totalAgre2;
+            document.getElementById("totalAgre3").textContent = totalAgre3;
+            document.getElementById("totalAgre4").textContent = totalAgre4;
+            
+            document.getElementById("totalEau").textContent = totalEau;
+            
+            document.getElementById("totalAdit1").textContent = totalAdit1;
+            document.getElementById("totalAdit2").textContent = totalAdit2;
+            document.getElementById("totalAdit3").textContent = totalAdit3;
+            document.getElementById("totalAdit4").textContent = totalAdit4;
+            document.getElementById("totalAdit5").textContent = totalAdit5;
+            document.getElementById("totalAdit6").textContent = totalAdit6;
+            document.getElementById("totalAdit7").textContent = totalAdit7;
+            
+            }
 });
