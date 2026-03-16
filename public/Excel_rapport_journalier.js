@@ -97,6 +97,7 @@ function formatDateFR(dateString){
               showAll.textContent = "Tout afficher";
               showAll.onclick = () => {
                 document.querySelectorAll("#tableRapport tbody tr").forEach(r => r.style.display = "");
+                calculerTotaux();
                 menu.remove();
               };
               menu.appendChild(showAll);
@@ -113,7 +114,7 @@ function formatDateFR(dateString){
                       row.style.display = "none";
                     }
                   });
-                  /*calculerTotaux();*/
+                  calculerTotaux();
                   menu.remove();
                 };
                 menu.appendChild(option);
@@ -132,19 +133,7 @@ function formatDateFR(dateString){
             document.querySelectorAll(".filter-menu").forEach(m => m.remove());
           });
         }
-      
-        // Fonction de suppression d'une ligne
-        async function supprimer(id) {
-          const confirmation = confirm("Supprimer cette ligne ?");
-          if (!confirmation) return;
-      
-          await fetch("/api/rapport?id=" + id, {
-            method: "DELETE"
-          });
-      
-          location.reload();
-        }
-      
+
         // Fonction de calcul des totaux
         function calculerTotaux(){
 
@@ -226,3 +215,16 @@ function formatDateFR(dateString){
             
             }
 });
+
+
+// Fonction de suppression d'une ligne
+async function supprimer(id) {
+    const confirmation = confirm("Supprimer cette ligne ?");
+    if (!confirmation) return;
+
+    await fetch("/api/rapport?id=" + id, {
+      method: "DELETE"
+    });
+
+    location.reload();
+  }
