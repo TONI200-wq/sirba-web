@@ -108,9 +108,7 @@ function formatDateFR(dateString){
         
               // Collecte les valeurs uniques dans la colonne et vérifie celles qui sont visibles
               document.querySelectorAll("#tableRapport tbody tr").forEach(row => {
-                if (row.style.display !== "none") { // On ne prend que les lignes visibles
                   values.add(row.children[colIndex].innerText);
-                }
               });
         
               // Créer les cases à cocher pour chaque valeur
