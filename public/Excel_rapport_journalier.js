@@ -119,7 +119,12 @@ function formatDateFR(dateString){
         
               // Collecte les valeurs uniques dans la colonne et vérifie celles qui sont visibles
               document.querySelectorAll("#tableRapport tbody tr").forEach(row => {
-                values.add(row.children[colIndex].innerText.trim());
+                document.querySelectorAll("#tableRapport tbody tr").forEach(row => {
+                  if (row.style.display === "none") return;
+                
+                  const cellText = row.children[colIndex].innerText.trim();
+                  values.add(cellText);
+                });
               });
         
               // Créer les cases à cocher pour chaque valeur
@@ -158,7 +163,6 @@ function formatDateFR(dateString){
         }
 
         function appliquerFiltres() {
-          console.log("Filtres:", filtresActifs); 
           const rows = document.querySelectorAll("#tableRapport tbody tr");
         
           rows.forEach(row => {
@@ -170,7 +174,6 @@ function formatDateFR(dateString){
               if (!filtres || filtres.length === 0) continue;
         
               const cellValue = row.children[colIndex].innerText.trim();
-              console.log("Comparaison:", filtres, cellValue);
         
               const match = filtres.some(v =>
                 String(v).trim().toLowerCase() === String(cellValue).trim().toLowerCase()
@@ -185,7 +188,21 @@ function formatDateFR(dateString){
             row.style.display = visible ? "" : "none";
           });
         
+          // 🔥 recalcul des totaux
           calculerTotaux();
+        
+          // 🔥 INDICATEUR VISUEL (ICI EXACTEMENT)
+          const headers = document.querySelectorAll("#tableRapport thead th");
+        
+          headers.forEach((th, index) => {
+            if (filtresActifs[index] && filtresActifs[index].length > 0) {
+              th.style.backgroundColor = "#d1e7ff";
+              th.style.fontWeight = "bold";
+            } else {
+              th.style.backgroundColor = "";
+              th.style.fontWeight = "";
+            }
+          });
         }
 
         // Fonction de calcul des totaux
