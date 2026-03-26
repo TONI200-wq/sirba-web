@@ -1,4 +1,5 @@
 const filtresActifs = {};
+appliquerFiltres();
 function formatDateFR(dateString){
 
     const date = new Date(dateString);
@@ -90,6 +91,7 @@ function formatDateFR(dateString){
               const values = new Set();
       
               document.querySelectorAll("#tableRapport tbody tr").forEach(row => {
+                if(row.style.display === "none") return;
                 values.add(row.children[colIndex].innerText);
               });
       
