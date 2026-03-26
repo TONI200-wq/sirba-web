@@ -12,11 +12,33 @@ function formatDateFR(dateString){
     }
 
     document.addEventListener("DOMContentLoaded", async () => {
-
+        
         const table = document.getElementById("tableRapport");
         const tableBody = document.querySelector("#tableRapport tbody");
         const toggles = document.getElementById("columnToggles");
       
+        let filtresActifs = {};
+
+      // Mise à jour des filtres actifs pour chaque colonne
+      function mettreAJourFiltres(colIndex, value, checked) {
+        if (!filtresActifs[colIndex]) {
+          filtresActifs[colIndex] = [];
+        }
+
+        if (checked) {
+          // Ajoute la valeur si elle est cochée
+          if (checked) {
+            if (!filtresActifs[colIndex].includes(value)) {
+              filtresActifs[colIndex].push(value);
+            }
+          } else {
+            filtresActifs[colIndex] = filtresActifs[colIndex].filter(val => val !== value);
+          }
+        } else {
+          // Retire la valeur si elle est décochée
+        filtresActifs[colIndex] = filtresActifs[colIndex].filter(val => val !== value);
+        }
+      }
         try {
           const res = await fetch("/api/rapport");
           const data = await res.json();
@@ -79,87 +101,81 @@ function formatDateFR(dateString){
         // Fonction de filtrage des colonnes
         function activerFiltres() {
           const headers = document.querySelectorAll("#tableRapport thead th");
-      
+        
           headers.forEach((th, colIndex) => {
             th.addEventListener("click", (e) => {
               document.querySelectorAll(".filter-menu").forEach(m => m.remove());
-      
+        
               const menu = document.createElement("div");
               menu.className = "filter-menu";
-      
+        
+              // Utilisation d'un Set pour éviter les doublons
               const values = new Set();
-      
+        
+              // Collecte les valeurs uniques dans la colonne et vérifie celles qui sont visibles
               document.querySelectorAll("#tableRapport tbody tr").forEach(row => {
-                if(row.style.display === "none") return;
-                values.add(row.children[colIndex].innerText);
+                  values.add(row.children[colIndex].innerText);
               });
-      
-              // Afficher toutes les options
-              const showAll = document.createElement("div");
-              showAll.textContent = "Tout afficher";
-              showAll.onclick = () => {
-                delete filtresActifs[colIndex]; // supprimer filtre colonne
-                appliquerFiltres();
-                menu.remove();
-              };
-              menu.appendChild(showAll);
-      
-              // Afficher les valeurs uniques
+        
+              // Créer les cases à cocher pour chaque valeur
               values.forEach(value => {
                 const option = document.createElement("div");
-                option.textContent = value || "(vide)";
-                option.onclick = () => {
-
-                  // stocker le filtre actif
-                  filtresActifs[colIndex] = value;
-                
-                  appliquerFiltres();
-                
-                  menu.remove();
-                
-                };
+                const checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.value = value;
+                checkbox.id = `filter-${colIndex}-${value}`;
+        
+                checkbox.addEventListener("change", () => {
+                  mettreAJourFiltres(colIndex, value, checkbox.checked);
+                  appliquerFiltres();  // Recalcule les filtres après chaque changement
+                });
+        
+                option.appendChild(checkbox);
+                option.append(value || "(vide)");
+        
                 menu.appendChild(option);
               });
-      
+        
               document.body.appendChild(menu);
-      
+        
               const rect = th.getBoundingClientRect();
               menu.style.top = rect.bottom + window.scrollY + "px";
               menu.style.left = rect.left + window.scrollX + "px";
+        
               e.stopPropagation();
             });
           });
-      
+        
+          // Fermer le menu si on clique en dehors
           document.addEventListener("click", () => {
             document.querySelectorAll(".filter-menu").forEach(m => m.remove());
           });
         }
 
-        function appliquerFiltres(){
-
+        function appliquerFiltres() {
           const rows = document.querySelectorAll("#tableRapport tbody tr");
         
-          rows.forEach(row=>{
-        
+          rows.forEach(row => {
             let visible = true;
         
-            for(const col in filtresActifs){
+            for (const colIndex in filtresActifs) {
+              const filtres = filtresActifs[colIndex];
         
-              const valeur = row.children[col].innerText;
+              // 🔥 IMPORTANT : si aucune case cochée → ignorer cette colonne
+              if (!filtres || filtres.length === 0) continue;
         
-              if(valeur !== filtresActifs[col]){
+              const cellValue = row.children[colIndex].innerText;
+        
+              if (!filtres.includes(cellValue)) {
                 visible = false;
                 break;
               }
-        
             }
         
             row.style.display = visible ? "" : "none";
-        
           });
         
-          calculerTotaux(); // 🔥 recalcul automatique
-        
+          calculerTotaux();
         }
 
         // Fonction de calcul des totaux
@@ -255,3 +271,5 @@ async function supprimer(id) {
 
     location.reload();
   }
+
+
