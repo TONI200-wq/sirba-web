@@ -111,39 +111,89 @@ function formatDateFR(dateString){
         
               const menu = document.createElement("div");
               menu.className = "filter-menu";
+        
+              // Empêche fermeture du menu
               menu.addEventListener("click", (e) => {
                 e.stopPropagation();
               });
-              // Utilisation d'un Set pour éviter les doublons
+        
+              // 🔥 Barre de recherche
+              const searchInput = document.createElement("input");
+              searchInput.type = "text";
+              searchInput.placeholder = "Rechercher...";
+              searchInput.style.width = "100%";
+              searchInput.style.marginBottom = "5px";
+              menu.appendChild(searchInput);
+        
+              // 🔥 Set des valeurs
               const values = new Set();
         
-              // Collecte les valeurs uniques dans la colonne et vérifie celles qui sont visibles
               document.querySelectorAll("#tableRapport tbody tr").forEach(row => {
-                document.querySelectorAll("#tableRapport tbody tr").forEach(row => {
-                  if (row.style.display === "none") return;
-                
-                  const cellText = row.children[colIndex].innerText.trim();
-                  values.add(cellText);
-                });
+                if (row.style.display === "none") return;
+        
+                const cellText = row.children[colIndex].innerText.trim();
+                values.add(cellText);
               });
         
-              // Créer les cases à cocher pour chaque valeur
+              // 🔥 "Afficher tout"
+              const selectAllDiv = document.createElement("div");
+        
+              const selectAllCheckbox = document.createElement("input");
+              selectAllCheckbox.type = "checkbox";
+              selectAllCheckbox.checked = true;
+        
+              selectAllCheckbox.addEventListener("change", () => {
+                const checkboxes = menu.querySelectorAll(".filter-option input");
+        
+                checkboxes.forEach(cb => {
+                  cb.checked = selectAllCheckbox.checked;
+                  mettreAJourFiltres(colIndex, cb.value, cb.checked);
+                });
+        
+                appliquerFiltres();
+              });
+        
+              selectAllDiv.appendChild(selectAllCheckbox);
+              selectAllDiv.append(" Afficher tout");
+              menu.appendChild(selectAllDiv);
+        
+              // 🔥 Options
               values.forEach(value => {
                 const option = document.createElement("div");
+                option.classList.add("filter-option");
+        
                 const checkbox = document.createElement("input");
                 checkbox.type = "checkbox";
-                checkbox.value = value.trim();
-                checkbox.id = `filter-${colIndex}-${value}`;
+                checkbox.value = value;
+                checkbox.checked = (filtresActifs[colIndex] || []).includes(value);
         
                 checkbox.addEventListener("change", () => {
                   mettreAJourFiltres(colIndex, value, checkbox.checked);
-                  appliquerFiltres();  // Recalcule les filtres après chaque changement
+                  appliquerFiltres();
+        
+                  // sync select all
+                  const allChecked = [...menu.querySelectorAll(".filter-option input")]
+                    .every(cb => cb.checked);
+        
+                  selectAllCheckbox.checked = allChecked;
                 });
         
                 option.appendChild(checkbox);
-                option.append(value || "(vide)");
+                option.append(" " + (value || "(vide)"));
         
                 menu.appendChild(option);
+              });
+        
+              // 🔥 Recherche
+              searchInput.addEventListener("input", () => {
+                const search = searchInput.value.toLowerCase();
+        
+                const options = menu.querySelectorAll(".filter-option");
+        
+                options.forEach(opt => {
+                  const text = opt.textContent.toLowerCase();
+                  opt.style.display = text.includes(search) ? "" : "none";
+                });
               });
         
               document.body.appendChild(menu);
@@ -156,7 +206,7 @@ function formatDateFR(dateString){
             });
           });
         
-          // Fermer le menu si on clique en dehors
+          // fermeture menu
           document.addEventListener("click", () => {
             document.querySelectorAll(".filter-menu").forEach(m => m.remove());
           });
