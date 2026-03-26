@@ -1,3 +1,4 @@
+const filtresActifs = {};
 function formatDateFR(dateString){
 
     const date = new Date(dateString);
@@ -96,8 +97,8 @@ function formatDateFR(dateString){
               const showAll = document.createElement("div");
               showAll.textContent = "Tout afficher";
               showAll.onclick = () => {
-                document.querySelectorAll("#tableRapport tbody tr").forEach(r => r.style.display = "");
-                calculerTotaux();
+                delete filtresActifs[colIndex]; // supprimer filtre colonne
+                appliquerFiltres();
                 menu.remove();
               };
               menu.appendChild(showAll);
@@ -107,15 +108,14 @@ function formatDateFR(dateString){
                 const option = document.createElement("div");
                 option.textContent = value || "(vide)";
                 option.onclick = () => {
-                  document.querySelectorAll("#tableRapport tbody tr").forEach(row => {
-                    if (row.children[colIndex].innerText === value) {
-                      row.style.display = "";
-                    } else {
-                      row.style.display = "none";
-                    }
-                  });
-                  calculerTotaux();
+
+                  // stocker le filtre actif
+                  filtresActifs[colIndex] = value;
+                
+                  appliquerFiltres();
+                
                   menu.remove();
+                
                 };
                 menu.appendChild(option);
               });
@@ -132,6 +132,33 @@ function formatDateFR(dateString){
           document.addEventListener("click", () => {
             document.querySelectorAll(".filter-menu").forEach(m => m.remove());
           });
+        }
+
+        function appliquerFiltres(){
+
+          const rows = document.querySelectorAll("#tableRapport tbody tr");
+        
+          rows.forEach(row=>{
+        
+            let visible = true;
+        
+            for(const col in filtresActifs){
+        
+              const valeur = row.children[col].innerText;
+        
+              if(valeur !== filtresActifs[col]){
+                visible = false;
+                break;
+              }
+        
+            }
+        
+            row.style.display = visible ? "" : "none";
+        
+          });
+        
+          calculerTotaux(); // 🔥 recalcul automatique
+        
         }
 
         // Fonction de calcul des totaux
