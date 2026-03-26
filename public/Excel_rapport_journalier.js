@@ -1,5 +1,4 @@
 const filtresActifs = {};
-appliquerFiltres();
 function formatDateFR(dateString){
 
     const date = new Date(dateString);
