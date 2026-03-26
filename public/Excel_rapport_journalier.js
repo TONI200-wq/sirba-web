@@ -16,8 +16,23 @@ function formatDateFR(dateString){
         const table = document.getElementById("tableRapport");
         const tableBody = document.querySelector("#tableRapport tbody");
         const toggles = document.getElementById("columnToggles");
-      // Mise à jour des filtres actifs pour chaque colonne
       
+        let filtresActifs = {};
+
+      // Mise à jour des filtres actifs pour chaque colonne
+      function mettreAJourFiltres(colIndex, value, checked) {
+        if (!filtresActifs[colIndex]) {
+          filtresActifs[colIndex] = [];
+        }
+
+        if (checked) {
+          // Ajoute la valeur si elle est cochée
+          filtresActifs[colIndex].push(value);
+        } else {
+          // Retire la valeur si elle est décochée
+        filtresActifs[colIndex] = filtresActifs[colIndex].filter(val => val !== value);
+        }
+      }
         try {
           const res = await fetch("/api/rapport");
           const data = await res.json();
@@ -137,22 +152,24 @@ function formatDateFR(dateString){
           rows.forEach(row => {
             let visible = true;
         
-            // Vérifie chaque colonne
             for (const colIndex in filtresActifs) {
-              const cellValue = row.children[colIndex].innerText;
-              const isChecked = filtresActifs[colIndex].some(value => cellValue === value);
+              const filtres = filtresActifs[colIndex];
         
-              if (!isChecked) {
+              // 👉 IMPORTANT : si aucun filtre actif → on ignore la colonne
+              if (!filtres || filtres.length === 0) continue;
+        
+              const cellValue = row.children[colIndex].innerText;
+        
+              if (!filtres.includes(cellValue)) {
                 visible = false;
                 break;
               }
             }
         
-            // Affiche ou masque la ligne en fonction des filtres
             row.style.display = visible ? "" : "none";
           });
         
-          calculerTotaux();  // Met à jour les totaux après filtrage
+          calculerTotaux();
         }
 
         // Fonction de calcul des totaux
