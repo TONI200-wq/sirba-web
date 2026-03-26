@@ -111,7 +111,9 @@ function formatDateFR(dateString){
         
               const menu = document.createElement("div");
               menu.className = "filter-menu";
-        
+              menu.addEventListener("click", (e) => {
+                e.stopPropagation();
+              });
               // Utilisation d'un Set pour éviter les doublons
               const values = new Set();
         
