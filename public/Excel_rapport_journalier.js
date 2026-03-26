@@ -156,6 +156,7 @@ function formatDateFR(dateString){
         }
 
         function appliquerFiltres() {
+          console.log("Filtres:", filtresActifs); 
           const rows = document.querySelectorAll("#tableRapport tbody tr");
         
           rows.forEach(row => {
@@ -164,12 +165,16 @@ function formatDateFR(dateString){
             for (const colIndex in filtresActifs) {
               const filtres = filtresActifs[colIndex];
         
-              // 🔥 IMPORTANT : si aucune case cochée → ignorer cette colonne
               if (!filtres || filtres.length === 0) continue;
         
               const cellValue = row.children[colIndex].innerText.trim();
+              console.log("Comparaison:", filtres, cellValue);
         
-              if (!filtres.includes(cellValue)) {
+              const match = filtres.some(v =>
+                String(v).trim().toLowerCase() === String(cellValue).trim().toLowerCase()
+              );
+        
+              if (!match) {
                 visible = false;
                 break;
               }
