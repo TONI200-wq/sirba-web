@@ -21,24 +21,27 @@ function formatDateFR(dateString){
 
       // Mise à jour des filtres actifs pour chaque colonne
       function mettreAJourFiltres(colIndex, value, checked) {
+        // Initialiser le tableau si inexistant
         if (!filtresActifs[colIndex]) {
           filtresActifs[colIndex] = [];
         }
-
+      
         if (checked) {
-          // Ajoute la valeur si elle est cochée
-          if (checked) {
-            if (!filtresActifs[colIndex].includes(value)) {
-              filtresActifs[colIndex].push(value);
-            }
-          } else {
-            filtresActifs[colIndex] = filtresActifs[colIndex].filter(val => val !== value);
+          // Ajouter la valeur sans doublon
+          if (!filtresActifs[colIndex].includes(value)) {
+            filtresActifs[colIndex].push(value);
           }
         } else {
-          // Retire la valeur si elle est décochée
-        filtresActifs[colIndex] = filtresActifs[colIndex].filter(val => val !== value);
+          // Retirer la valeur
+          filtresActifs[colIndex] = filtresActifs[colIndex].filter(val => val !== value);
+      
+          // 🔥 Supprimer la colonne si elle n’a plus de filtre
+          if (filtresActifs[colIndex].length === 0) {
+            delete filtresActifs[colIndex];
+          }
         }
       }
+      
         try {
           const res = await fetch("/api/rapport");
           const data = await res.json();
@@ -114,7 +117,7 @@ function formatDateFR(dateString){
         
               // Collecte les valeurs uniques dans la colonne et vérifie celles qui sont visibles
               document.querySelectorAll("#tableRapport tbody tr").forEach(row => {
-                  values.add(row.children[colIndex].innerText);
+                values.add(row.children[colIndex].innerText.trim());
               });
         
               // Créer les cases à cocher pour chaque valeur
@@ -122,7 +125,7 @@ function formatDateFR(dateString){
                 const option = document.createElement("div");
                 const checkbox = document.createElement("input");
                 checkbox.type = "checkbox";
-                checkbox.value = value;
+                checkbox.value = value.trim();
                 checkbox.id = `filter-${colIndex}-${value}`;
         
                 checkbox.addEventListener("change", () => {
@@ -164,7 +167,7 @@ function formatDateFR(dateString){
               // 🔥 IMPORTANT : si aucune case cochée → ignorer cette colonne
               if (!filtres || filtres.length === 0) continue;
         
-              const cellValue = row.children[colIndex].innerText;
+              const cellValue = row.children[colIndex].innerText.trim();
         
               if (!filtres.includes(cellValue)) {
                 visible = false;
