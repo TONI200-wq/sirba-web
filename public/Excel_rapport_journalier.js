@@ -16,23 +16,8 @@ function formatDateFR(dateString){
         const table = document.getElementById("tableRapport");
         const tableBody = document.querySelector("#tableRapport tbody");
         const toggles = document.getElementById("columnToggles");
-      
-        let filtresActifs = {};
-
       // Mise à jour des filtres actifs pour chaque colonne
-      function mettreAJourFiltres(colIndex, value, checked) {
-        if (!filtresActifs[colIndex]) {
-          filtresActifs[colIndex] = [];
-        }
-
-        if (checked) {
-          // Ajoute la valeur si elle est cochée
-          filtresActifs[colIndex].push(value);
-        } else {
-          // Retire la valeur si elle est décochée
-        filtresActifs[colIndex] = filtresActifs[colIndex].filter(val => val !== value);
-        }
-      }
+      
         try {
           const res = await fetch("/api/rapport");
           const data = await res.json();
