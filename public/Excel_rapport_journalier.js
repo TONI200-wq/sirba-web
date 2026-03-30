@@ -110,6 +110,7 @@ function formatDateFR(dateString){
               document.querySelectorAll(".filter-menu").forEach(m => m.remove());
         
               const menu = document.createElement("div");
+              let filtresTemp = JSON.parse(JSON.stringify(filtresActifs));
               menu.className = "filter-menu";
         
               // Empêche fermeture du menu
@@ -144,13 +145,26 @@ function formatDateFR(dateString){
         
               selectAllCheckbox.addEventListener("change", () => {
                 const checkboxes = menu.querySelectorAll(".filter-option input");
-        
+              
                 checkboxes.forEach(cb => {
                   cb.checked = selectAllCheckbox.checked;
-                  mettreAJourFiltres(colIndex, cb.value, cb.checked);
+              
+                  if (!filtresTemp[colIndex]) {
+                    filtresTemp[colIndex] = [];
+                  }
+              
+                  if (cb.checked) {
+                    if (!filtresTemp[colIndex].includes(cb.value)) {
+                      filtresTemp[colIndex].push(cb.value);
+                    }
+                  } else {
+                    filtresTemp[colIndex] = filtresTemp[colIndex].filter(v => v !== cb.value);
+              
+                    if (filtresTemp[colIndex].length === 0) {
+                      delete filtresTemp[colIndex];
+                    }
+                  }
                 });
-        
-                appliquerFiltres();
               });
         
               selectAllDiv.appendChild(selectAllCheckbox);
@@ -165,11 +179,24 @@ function formatDateFR(dateString){
                 const checkbox = document.createElement("input");
                 checkbox.type = "checkbox";
                 checkbox.value = value;
-                checkbox.checked = (filtresActifs[colIndex] || []).includes(value);
+                checkbox.checked = (filtresTemp[colIndex] || []).includes(value);
         
                 checkbox.addEventListener("change", () => {
-                  mettreAJourFiltres(colIndex, value, checkbox.checked);
-                  appliquerFiltres();
+                  if (!filtresTemp[colIndex]) {
+                    filtresTemp[colIndex] = [];
+                  }
+                  
+                  if (checkbox.checked) {
+                    if (!filtresTemp[colIndex].includes(value)) {
+                      filtresTemp[colIndex].push(value);
+                    }
+                  } else {
+                    filtresTemp[colIndex] = filtresTemp[colIndex].filter(v => v !== value);
+                  
+                    if (filtresTemp[colIndex].length === 0) {
+                      delete filtresTemp[colIndex];
+                    }
+                  }
         
                   // sync select all
                   const allChecked = [...menu.querySelectorAll(".filter-option input")]
@@ -195,7 +222,35 @@ function formatDateFR(dateString){
                   opt.style.display = text.includes(search) ? "" : "none";
                 });
               });
-        
+              
+              const actions = document.createElement("div");
+
+
+              actions.style.marginTop = "10px";
+
+              // ✅ OK
+              const btnOk = document.createElement("button");
+              btnOk.textContent = "OK";
+
+              btnOk.onclick = () => {
+                filtresActifs = filtresTemp;
+                appliquerFiltres();
+                menu.remove();
+              };
+
+              // ❌ Annuler
+              const btnCancel = document.createElement("button");
+              btnCancel.textContent = "Annuler";
+              btnCancel.style.marginLeft = "5px";
+
+              btnCancel.onclick = () => {
+                menu.remove();
+              };
+
+              actions.appendChild(btnOk);
+              actions.appendChild(btnCancel);
+              menu.appendChild(actions);
+              
               document.body.appendChild(menu);
         
               const rect = th.getBoundingClientRect();
