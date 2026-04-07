@@ -130,11 +130,6 @@ function formatDateFR(dateString){
               const values = new Set();
         
               document.querySelectorAll("#tableRapport tbody tr").forEach(row => {
-                document.querySelectorAll("#tableRapport tbody tr").forEach(row => {
-                  const cellText = row.children[colIndex].innerText.trim();
-                  values.add(cellText);
-                });
-        
                 const cellText = row.children[colIndex].innerText.trim();
                 values.add(cellText);
               });
