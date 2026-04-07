@@ -130,7 +130,10 @@ function formatDateFR(dateString){
               const values = new Set();
         
               document.querySelectorAll("#tableRapport tbody tr").forEach(row => {
-                if (row.style.display === "none") return;
+                document.querySelectorAll("#tableRapport tbody tr").forEach(row => {
+                  const cellText = row.children[colIndex].innerText.trim();
+                  values.add(cellText);
+                });
         
                 const cellText = row.children[colIndex].innerText.trim();
                 values.add(cellText);
@@ -175,39 +178,41 @@ function formatDateFR(dateString){
               values.forEach(value => {
                 const option = document.createElement("div");
                 option.classList.add("filter-option");
-        
+              
                 const checkbox = document.createElement("input");
                 checkbox.type = "checkbox";
                 checkbox.value = value;
+              
+                // 🔥 état basé sur filtresTemp uniquement
                 checkbox.checked = (filtresTemp[colIndex] || []).includes(value);
-        
+              
                 checkbox.addEventListener("change", () => {
                   if (!filtresTemp[colIndex]) {
                     filtresTemp[colIndex] = [];
                   }
-                  
+              
                   if (checkbox.checked) {
                     if (!filtresTemp[colIndex].includes(value)) {
                       filtresTemp[colIndex].push(value);
                     }
                   } else {
                     filtresTemp[colIndex] = filtresTemp[colIndex].filter(v => v !== value);
-                  
+              
                     if (filtresTemp[colIndex].length === 0) {
                       delete filtresTemp[colIndex];
                     }
                   }
-        
+              
                   // sync select all
                   const allChecked = [...menu.querySelectorAll(".filter-option input")]
                     .every(cb => cb.checked);
-        
+              
                   selectAllCheckbox.checked = allChecked;
                 });
-        
+              
                 option.appendChild(checkbox);
                 option.append(" " + (value || "(vide)"));
-        
+              
                 menu.appendChild(option);
               });
         
