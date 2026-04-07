@@ -146,21 +146,23 @@ function formatDateFR(dateString){
               
                 checkboxes.forEach(cb => {
                   cb.checked = selectAllCheckbox.checked;
-                });
               
-                // 🔥 Si tout est coché → supprimer filtre
-                if (selectAllCheckbox.checked) {
-                  delete filtresTemp[colIndex];
-                } else {
-                  // sinon on reconstruit filtresTemp avec les cochés
-                  filtresTemp[colIndex] = [...checkboxes]
-                    .filter(cb => cb.checked)
-                    .map(cb => cb.value);
-              
-                  if (filtresTemp[colIndex].length === 0) {
-                    delete filtresTemp[colIndex];
+                  if (!filtresTemp[colIndex]) {
+                    filtresTemp[colIndex] = [];
                   }
-                }
+              
+                  if (cb.checked) {
+                    if (!filtresTemp[colIndex].includes(cb.value)) {
+                      filtresTemp[colIndex].push(cb.value);
+                    }
+                  } else {
+                    filtresTemp[colIndex] = filtresTemp[colIndex].filter(v => v !== cb.value);
+              
+                    if (filtresTemp[colIndex].length === 0) {
+                      delete filtresTemp[colIndex];
+                    }
+                  }
+                });
               });
         
               selectAllDiv.appendChild(selectAllCheckbox);
@@ -179,15 +181,29 @@ function formatDateFR(dateString){
                 // 🔥 état basé sur filtresTemp uniquement
                 checkbox.checked = (filtresTemp[colIndex] || []).includes(value);
               
-                const allCheckboxes = [...menu.querySelectorAll(".filter-option input")];
-const allChecked = allCheckboxes.every(cb => cb.checked);
-const noneChecked = allCheckboxes.every(cb => !cb.checked);
-
-// ✔️ si tout coché → afficher tout coché
-selectAllCheckbox.checked = allChecked;
-
-// (optionnel mais propre UX)
-selectAllCheckbox.indeterminate = !allChecked && !noneChecked;
+                checkbox.addEventListener("change", () => {
+                  if (!filtresTemp[colIndex]) {
+                    filtresTemp[colIndex] = [];
+                  }
+              
+                  if (checkbox.checked) {
+                    if (!filtresTemp[colIndex].includes(value)) {
+                      filtresTemp[colIndex].push(value);
+                    }
+                  } else {
+                    filtresTemp[colIndex] = filtresTemp[colIndex].filter(v => v !== value);
+              
+                    if (filtresTemp[colIndex].length === 0) {
+                      delete filtresTemp[colIndex];
+                    }
+                  }
+              
+                  // sync select all
+                  const allChecked = [...menu.querySelectorAll(".filter-option input")]
+                    .every(cb => cb.checked);
+              
+                  selectAllCheckbox.checked = allChecked;
+                });
               
                 option.appendChild(checkbox);
                 option.append(" " + (value || "(vide)"));
