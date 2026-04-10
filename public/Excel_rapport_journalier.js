@@ -179,8 +179,8 @@ function formatDateFR(dateString){
                 checkbox.value = value;
               
                 // 🔥 état basé sur filtresTemp uniquement
-                checkbox.checked = (filtresTemp[colIndex] || []).includes(value);
-              
+                checkbox.checked =
+                  !filtresTemp[colIndex] || filtresTemp[colIndex].includes(value);
                 checkbox.addEventListener("change", () => {
                   if (!filtresTemp[colIndex]) {
                     filtresTemp[colIndex] = [];
@@ -210,6 +210,14 @@ function formatDateFR(dateString){
               
                 menu.appendChild(option);
               });
+
+              const allCheckboxes = [...menu.querySelectorAll(".filter-option input")];
+
+              const allChecked = allCheckboxes.every(cb => cb.checked);
+              const noneChecked = allCheckboxes.every(cb => !cb.checked);
+
+              selectAllCheckbox.checked = allChecked;
+              selectAllCheckbox.indeterminate = !allChecked && !noneChecked;
         
               // 🔥 Recherche
               searchInput.addEventListener("input", () => {
@@ -233,6 +241,18 @@ function formatDateFR(dateString){
               btnOk.textContent = "OK";
 
               btnOk.onclick = () => {
+                Object.keys(filtresTemp).forEach(col => {
+                  const allValues = new Set();
+                
+                  document.querySelectorAll("#tableRapport tbody tr").forEach(row => {
+                    allValues.add(row.children[col].innerText.trim());
+                  });
+                
+                  if (filtresTemp[col].length === allValues.size) {
+                    delete filtresTemp[col];
+                  }
+                });
+                
                 filtresActifs = filtresTemp;
                 appliquerFiltres();
                 menu.remove();
@@ -298,9 +318,23 @@ function formatDateFR(dateString){
         
           // 🔥 INDICATEUR VISUEL (ICI EXACTEMENT)
           const headers = document.querySelectorAll("#tableRapport thead th");
-        
+
           headers.forEach((th, index) => {
-            if (filtresActifs[index] && filtresActifs[index].length > 0) {
+
+            const allValues = new Set();
+            document.querySelectorAll("#tableRapport tbody tr").forEach(row => {
+              const val = row.children[index].innerText.trim();
+              allValues.add(val);
+            });
+
+            const filtres = filtresActifs[index];
+
+            const isFiltered =
+              filtres &&
+              filtres.length > 0 &&
+              filtres.length < allValues.size;
+
+            if (isFiltered) {
               th.style.backgroundColor = "#d1e7ff";
               th.style.fontWeight = "bold";
             } else {
