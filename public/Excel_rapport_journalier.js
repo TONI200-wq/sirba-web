@@ -93,6 +93,9 @@ function formatDateFR(dateString){
 
           // Création du panneau de gestion des colonnes
           creerGestionColonnes();
+          console.log("TEST panneau colonnes");
+          console.log("Nombre de titres :", document.querySelectorAll("#tableRapport thead th").length);
+          console.log("Panneau :", toggles);
       
           // Calcul des totaux et mise à jour de la ligne du bas
           calculerTotaux();
