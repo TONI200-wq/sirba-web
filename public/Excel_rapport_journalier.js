@@ -90,6 +90,9 @@ function formatDateFR(dateString){
       
             tableBody.appendChild(tr);
           });
+
+          // Création du panneau de gestion des colonnes
+          creerGestionColonnes();
       
           // Calcul des totaux et mise à jour de la ligne du bas
           calculerTotaux();
@@ -436,6 +439,59 @@ async function supprimer(id) {
     });
 
     location.reload();
+  }
+
+
+
+
+  function creerGestionColonnes() {
+
+    const headers = document.querySelectorAll("#tableRapport thead th");
+  
+    headers.forEach((th, index) => {
+  
+      const label = document.createElement("label");
+  
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = true;
+  
+  
+      checkbox.addEventListener("change", () => {
+  
+        const display = checkbox.checked ? "" : "none";
+  
+  
+        // Masquer le titre
+        th.style.display = display;
+  
+  
+        // Masquer les cellules
+        document.querySelectorAll("#tableRapport tbody tr")
+        .forEach(row => {
+          row.children[index].style.display = display;
+        });
+  
+  
+        // Masquer la ligne TOTAL
+        const totalCell = document.querySelector("#ligneTotal").children[index];
+  
+        if(totalCell){
+          totalCell.style.display = display;
+        }
+  
+      });
+  
+  
+      label.appendChild(checkbox);
+      label.append(" " + th.innerText);
+  
+  
+      toggles.appendChild(label);
+      toggles.appendChild(document.createElement("br"));
+  
+    });
+  
   }
 
 
